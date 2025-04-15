@@ -224,6 +224,98 @@
     - **2a. User clicks "Cancel":**
         - a. System aborts the deletion process.
         - System keeps the user on recipe detail page.
+
+
+7. Use Case Name: View Recipe
+
+- **Pre-condition:** None
+- **Trigger:** User clicks on the **Recipe Link** button or types in URL.
+- **Primary Sequence:**
+    1. System directs user to recipe page
+    2. System gets information from DB
+    3. System parses information and displays on page
+
+- **Primary Post-conditions:** User is on specific recipe's page
+
+8. Search Recipe
+- **Pre-condition:** User is on the Search Page
+- **Primary Sequence:**
+    1. User types in string from the title
+    2. User clicks search
+    3. System looks through DB to see if the string is contained in any title
+    4. System will then return a link to any recipe that contains the string in the title
+    5. User can click on the recipe they're looking for
+
+- **Primary Post-conditions:** User is given a list of recipes from DB
+- **Alternate Sequence:**
+    - **2a. User has no input:**
+        - System displays an error message due to lack of input
+    - **5a. No match found in DB:**
+        - System displays an error message "recipe not found"
+
+9. Rate Recipe
+- **Pre-condition:** User is on a recipe page and logged in
+- **Trigger:** User clicks rate recipe
+- **Primary Sequence:**
+    1. User rates a recipe 1-5 stars
+    2. System takes in the rating and adds it to the total rating in DB
+    3. System finds new avg with rating from the user
+    4. System updates avg rating displayed on page
+
+- **Primary Post-conditions:** The recipe is rating is updated and visible on the recipe page
+- **Alternate Sequence:**
+    - **1a. User cancels rating:**
+        - No rating is applied
+
+10. Comment on Recipe
+- **Pre-condition:** User is on a recipe page and logged in
+- **Trigger:** User clicks **comment** button
+- **Primary Sequence:**
+    1. User types in comment
+    2. User posts comment
+    3. System stores comment into DB
+    4. System reloads page to display comment
+
+- **Primary Post-conditions:** The recipe page is updated with the comment from the user displayed on the page
+- **Alternate Sequence:**
+    - **2a. User cancels comment:**
+        - No comment is posted
+
+11. View User Profile
+- **Pre-condition:** None
+- **Trigger:** User clicks on User or types in URL
+- **Primary Sequence:**
+    1. User is directed to a User profile
+    2. System gets information from DB
+    3. System parses and displays information on page
+
+- **Primary Post-conditions:** Selected User's profile will be on a page for display
+
+12. Edit User Profile
+- **Pre-condition:** User is on self profile page and logged in
+- **Trigger:** User clicks **Edit Profile** button
+- **Primary Sequence:**
+    1. Update page to be editable
+    2. User makes changes to available fields
+    3. User saves changes
+    4. System saves changes into DB
+    5. System reloads page with updated information from DB
+
+- **Primary Post-conditions:** User Profile page is updated with new information/changes
+- **Alternate Sequence:**
+    - **1a. User leaves field empty:**
+        - System displays an error message that "One or more fields are incomplete"
+    - **2a. User cancels edit:**
+        - Changes are discarded
+
+13. Save Recipe
+- **Pre-condition:** User is on a recipe page and logged in
+- **Trigger:** User clicks **Save Recipe** button
+- **Primary Sequence:**
+    1. System finds User in DB
+    2. System adds Recipe to saved posts
+    3. Reload page and display that this post is saved
+
+- **Primary Post-conditions:** User's saved posts are updated and the recipe page displays that the post is already saved
+
 ---
-
-
