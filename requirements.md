@@ -1,20 +1,22 @@
-## <remove all of the example text and notes in < > such as this one>
-
 ## Functional Requirements
-1. requirement <should be 1 sentence that describes requirement>
-2. requirement
-3. requirement
-4. requirement
-5. requirement
-6. requirement
-7. requirement
-8. requirement
-9. requirement
-10. requirement
-11. requirement
-12. requirement
-13. requirement
-14. requirement
+1. A visitor can create an account by providing a username, email, and password.
+2. Registered users can log in using their email and password.
+3. Logged-in users can log out of their account securely.
+4. Logged-in users can add new recipes with title, description, ingredients, and instructions.
+5. Users can update their own recipes after creation.
+6. Users can delete their own recipes.
+7. Anyone can view the details of a recipe including ingredients and instructions.
+8. Users can search recipes by title or ingredient keywords.
+9. Users can rate a recipe from 1 to 5 stars.
+10. Users can leave comments on a recipe.
+11. Users can view their own profile, including their submitted recipes.
+12. Users can update their display name, email, or password.
+13. Users can save or 'favorite' recipes for quick access later.
+14. Homepage or main recipe list shows all recipes available in the database.
+15. Users can filter recipes by tags like 'vegan', 'dessert', etc.
+16. User is logged in can see the profile and recipes of another user.
+17. User is able to delete their profile and all of their recipes will be auto deleted.
+18. User can set or update one single favorite other user.
 
 <using the syntax [](images/ui1.png) add images in a folder called images/ and place sketches of your webpages>
 
@@ -23,8 +25,9 @@
 2. non-functional
 ## Use Cases <Le Duy Nguyen>
 
-1. Use Case Name: User Registration
-
+1. **Use Case Name:** User Registration
+- **Summary:** A visitor can create an account by providing a username, email, and password.
+- **Actor(s):** User, System
 - **Pre-condition:** User is on the homepage.
 - **Trigger:** User clicks on the **Register an Account** button.
 - **Primary Sequence:**
@@ -90,7 +93,9 @@
 
         - b. System prompts user to enter a different password.
     ---
-2. Use Case Name: User Login
+2. **Use Case Name:** User Login
+- **Summary:** Registered users can log in using their email and password.
+- **Actor(s):** User, System
 - **Pre-condition:** User is on the homepage.
 - **Trigger:** User clicks on the **Log In** button.
 - **Primary Sequence:**
@@ -125,7 +130,9 @@
 
         - b. System prompts the user to retry or reset password.
     ---
-3. Use Case Name: User Logout
+3. **Use Case Name:** User Logout
+- **Summary:** Logged-in users can log out of their account securely.
+- **Actor(s):** User, System
 - **Pre-condition:** User is logged in.
 - **Trigger:** User clicks on **Log Out** button.
 - **Primary Sequence:**
@@ -147,7 +154,9 @@
 
         - b. System keeps the user logged in and returns to current view.
     ---
-4. Use Case Name: Create Recipe
+4. **Use Case Name:** Create Recipe
+- **Summary:** Logged-in users can add new recipes with title, description, ingredients, and instructions.
+- **Actor(s):** User, System
 - **Pre-condition:** User is logged in.
 - **Trigger:** User clicks on **Add Recipe** button.
 - **Primary Sequence:**
@@ -179,7 +188,9 @@
 
         - b. System prompts user to enter instructions.
     ---
-5. Use Case Name: Edit recipe
+5. **Use Case Name:** Edit recipe
+- **Summary:** Users can update their own recipes after creation.
+- **Actor(s):** User, System
 - **Pre-condition:** 
     - User is logged in.
     - User is on a the detail page of the recipe to edit.
@@ -206,7 +217,9 @@
 
         - b. System prompts user to enter the missing field(s).
     ---
-6. Use Case Name: Delete Recipe
+6. **Use Case Name:** Delete Recipe
+- **Summary:** Users can delete their own recipes.
+- **Actor(s):** User, System
 - **Pre-condition:**     
     - User is logged in.
     - User is on a the detail page of the recipe to delete.
@@ -224,10 +237,10 @@
     - **2a. User clicks "Cancel":**
         - a. System aborts the deletion process.
         - System keeps the user on recipe detail page.
-
-
-7. Use Case Name: View Recipe
-
+    ---
+7. **Use Case Name:** View Recipe
+- **Summary:** Anyone can view the details of a recipe including ingredients and instructions.
+- **Actor(s):** User, System
 - **Pre-condition:** None
 - **Trigger:** User clicks on the **Recipe Link** button or types in URL.
 - **Primary Sequence:**
@@ -236,8 +249,11 @@
     3. System parses information and displays on page
 
 - **Primary Post-conditions:** User is on specific recipe's page
-
-8. Search Recipe
+    
+    ---
+8. **Use Case Name:** Search Recipe
+- **Summary:** Users can search recipes by title or ingredient keywords.
+- **Actor(s):** User, System
 - **Pre-condition:** User is on the Search Page
 - **Primary Sequence:**
     1. User types in string from the title
@@ -252,8 +268,10 @@
         - System displays an error message due to lack of input
     - **5a. No match found in DB:**
         - System displays an error message "recipe not found"
-
-9. Rate Recipe
+    ---
+9. **Use Case Name:** Rate Recipe
+- **Summary:** Users can rate a recipe from 1 to 5 stars.
+- **Actor(s):** User, System
 - **Pre-condition:** User is on a recipe page and logged in
 - **Trigger:** User clicks rate recipe
 - **Primary Sequence:**
@@ -266,8 +284,10 @@
 - **Alternate Sequence:**
     - **1a. User cancels rating:**
         - No rating is applied
-
-10. Comment on Recipe
+    ---
+10. **Use Case Name:** Comment on Recipe
+- **Summary:** Users can leave comments on a recipe.
+- **Actor(s):** User, System
 - **Pre-condition:** User is on a recipe page and logged in
 - **Trigger:** User clicks **comment** button
 - **Primary Sequence:**
@@ -280,8 +300,10 @@
 - **Alternate Sequence:**
     - **2a. User cancels comment:**
         - No comment is posted
-
-11. View User Profile
+    ---
+11. **Use Case Name:** View User Profile
+- **Summary:** Users can view their own profile, including their submitted recipes.
+- **Actor(s):** User, System
 - **Pre-condition:** None
 - **Trigger:** User clicks on User or types in URL
 - **Primary Sequence:**
@@ -291,7 +313,10 @@
 
 - **Primary Post-conditions:** Selected User's profile will be on a page for display
 
-12. Edit User Profile
+    ---
+12. **Use Case Name:** Edit User Profile
+- **Summary:** Users can update their display name, email, or password.
+- **Actor(s):** User, System
 - **Pre-condition:** User is on self profile page and logged in
 - **Trigger:** User clicks **Edit Profile** button
 - **Primary Sequence:**
@@ -307,18 +332,20 @@
         - System displays an error message that "One or more fields are incomplete"
     - **2a. User cancels edit:**
         - Changes are discarded
-
-13. Save Recipe
+    ---
+13. **Use Case Name:** Save Recipe
+- **Summary:** Users can save or 'favorite' recipes for quick access later.
+- **Actor(s):** User, System
 - **Pre-condition:** User is on a recipe page and logged in
 - **Trigger:** User clicks **Save Recipe** button
 - **Primary Sequence:**
     1. System finds User in DB
     2. System adds Recipe to saved posts
     3. Reload page and display that this post is saved
-
 - **Primary Post-conditions:** User's saved posts are updated and the recipe page displays that the post is already saved
 
-14. View All Recipes
+    ---
+14. **Use Case Name:** View All Recipes
 - **Summary:** User that is logged in can view all recipes in the database
 - **Actor(s):** User
 - **Pre-condition:** User has an account
@@ -327,14 +354,13 @@
 	1. User logs in 
 	2. User clicks “recipes” link
 	3. System displays all recipes
-	
-- **Alternate Sequence:**
-	-**3a. Database has no recipes**
-		- System displays an error message
-		
-- **Primary Post-conditions:** User is on the “recipes” page
 
-15. Filter Recipes
+- **Primary Post-conditions:** User is on the “recipes” page
+- **Alternate Sequence:**
+    - **3a. Database has no recipes**
+		- System displays an error message
+    ---
+15. **Use Case Name:** Filter Recipes
 - **Summary:** User that is logged in can filter all recipes by pre-defined tags
 - **Actor(s):** User
 - **Pre-condition:** User has an account
@@ -346,14 +372,14 @@
 	4. User clicks on a tag
 	3. System displays all recipes that include that tag
 	
+- **Primary Post-conditions:** User can see all recipes that include the chosen tag
 - **Alternate Sequence:**
 	- **4a. This recipe has no tags:**
 		- User has to select a different recipe that has a tag
 		
-- **Primary Post-conditions:** User can see all recipes that include the chosen tag
-
-16. View Another Profile
-- **Summary:** User is logged in can see the profile and recipes of another user
+    ---
+16. **Use Case Name:** View Another Profile
+- **Summary:** User is logged in can see the profile and recipes of another user.
 - **Actor(s):** User
 - **Pre-condition:** More than one user exists
 - **Trigger:** User clicks on another user’s username **Tag Name** link
@@ -365,16 +391,16 @@
 	5. User clicks on the creator’s name
 	6. System displays the profile with that user’s recipes
 
+- **Primary Post-conditions:** User can see the recipes of the creator whose name they clicked on
 - **Alternate Sequence:**
 	- **5a. System has no recipes created by other users, only default ones:**
 		- User has to select a different recipe
-		
-- **Primary Post-conditions:** User can see the recipes of the creator whose name they clicked on
+	---
 
-17. Delete Profile
+17. **Use Case Name:** Delete Profile
 - **Summary:** User is able to delete their profile and all of their recipes will be auto deleted
 - **Actor(s):** User
-- **Pre-condition:** User has an account, and at least 1 other user exists
+- **Pre-condition:** User has an account, and at least 1 other user exists.
 - **Trigger:** User clicks on **Delete My Profile** link
 - **Primary Sequence:**
 	1. User logs in
@@ -384,14 +410,15 @@
 	5. System deletes their recipes
 	6. System deletes user’s profile
 	
+- **Primary Post-conditions:** User’s profile no longer exists within the system and why will need to re-register to continue using the system.
 - **Alternate Sequence:**
 	- **1a. User forgot their password:**
 		- User resets the password
-		
-- **Primary Post-conditions:** User’s profile no longer exists within the system and why will need to re-register to continue using the system.
+	---
 
-18. Follow Another Profile
-- **Summary:** User can set or update one single favorite other user
+
+18. **Use Case Name:** Follow Another Profile
+- **Summary:** User can set or update one single favorite other user.
 - **Actor(s):** User
 - **Pre-condition:** More than one user exists
 - **Trigger:** User clicks on **Follow** link
@@ -404,15 +431,14 @@
 	6. System takes user to the creator’s profile
 	7. User clicks **Follow** link
 
+- **Primary Post-conditions:** User is able to see the recipes of the followed user on “recipes” page above other users recipes 
 - **Alternate Sequence:**
 	- **1a. User forgot their password:**
 		- User resets the password
-	- **7a. User does not want to follow and does not click on **Follow*:**
+	- **7a. User does not want to follow and does not click on Follow:**
 		- User can click on *My Profile* or *Home* to be taken there.
 	- **7b. User clicks *follow* when they already have a follow:**
 		- User loses the old follow, because the new one replaces the old one
 	-**7c. User clicks “follow” when they are already following that user:**
 		- User instead unfollows that user
-	
-- **Primary Post-conditions:** User is able to see the recipes of the followed user on “recipes” page above other users recipes 
 ---
