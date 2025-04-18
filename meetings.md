@@ -111,6 +111,8 @@
 **To do:**
 - Update requirements.md with his portion of the completed requirements. Discuss with the team over chat how to change the models for the User.
 
+
+
 ---
 
 #### 👤 Angelina Ryabechenkova  
@@ -132,3 +134,55 @@
 - Decided when the next meeting will be and made a list of questions to ask the instructor regarding the **Milestone 1** assignment.
 
 - Tentative schedule of future meetings - `Wednesday 7pm`, `Thursday 7pm`.
+
+### 🗓️ 2025-04-17 at 19:00  
+**Attendees:** Le Duy Nguyen, Jason Nguyen, Angelina Ryabechenkova
+
+---
+
+### 🔄 Team Updates: Workload updates for Milestone 1
+
+---
+
+#### 👤 Duy Nguyen  
+**Completed:**
+
+- Reminded the rest of the team about the upcoming meetings and reviewed the grading rubric, ensuring we are hitting all of the requirements. Updated the formatting of requirements.md file. Gave input on UI work.
+
+**To do:**
+- Structure of the user model with Jason. Workflow model collab with Angelina..
+
+---
+
+#### 👤 Jason Nguyen  
+**Completed:**
+
+-  Finished and shared his portion of the requirements with the team, gave input on UI work.
+
+**To do:**
+- Will add non-functional requirements, and add “system” as one of the actors for all of Angelina’s use cases. 
+
+
+
+---
+
+#### 👤 Angelina Ryabechenkova  
+**Completed:**
+
+- Finished and shared the mock-ups. Uploaded her changes to requirements.md, updated the meetings.md file. 
+
+**To do:**
+- Will continue working on the mock-ups. Collaborate with Jason and Duy on user models. Angelina to start on the ethical implications. 
+
+---
+
+### ✅ Summary of Group Progress
+
+- Each team member shared their progress with the **Milestone 1**.
+- Finishing touches need to be made to **Milestone 1** and submitted.
+- Comments should be a model of its own, so need to work on that.
+- Everyone to work on structure of the user model.
+- Decided when the next meeting will be and started on **Milestone 2** assignment.
+
+- Tentative schedule of future meetings - `Saturday 7pm` or `Sunday 7pm` depending on Jason's availability. Friday didn't work for Angelina.
+
