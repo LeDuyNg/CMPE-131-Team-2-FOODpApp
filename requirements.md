@@ -21,8 +21,8 @@
 <using the syntax [](images/ui1.png) add images in a folder called images/ and place sketches of your webpages>
 
 ## Non-functional Requirements
-1. non-functional
-2. non-functional
+1. The system must use SQL for the database
+2. The system must use Flask as the web framework
 ## Use Cases <Le Duy Nguyen>
 
 1. **Use Case Name:** User Registration
@@ -222,7 +222,7 @@
 - **Actor(s):** User, System
 - **Pre-condition:**     
     - User is logged in.
-    - User is on a the detail page of the recipe to delete.
+    - User is on the detail page of the recipe to delete.
     - User is the owner of the recipe.
 - **Trigger:** User clicks on **Delete Recipe** button.
 - **Primary Sequence:**
@@ -347,7 +347,7 @@
     ---
 14. **Use Case Name:** View All Recipes
 - **Summary:** User that is logged in can view all recipes in the database
-- **Actor(s):** User
+- **Actor(s):** User, System
 - **Pre-condition:** User has an account
 - **Trigger:** User clicks **Recipes** link
 - **Primary Sequence:**
@@ -362,7 +362,7 @@
     ---
 15. **Use Case Name:** Filter Recipes
 - **Summary:** User that is logged in can filter all recipes by pre-defined tags
-- **Actor(s):** User
+- **Actor(s):** User, System
 - **Pre-condition:** User has an account
 - **Trigger:** User clicks a specific **Tag** link
 - **Primary Sequence:**
@@ -380,7 +380,7 @@
     ---
 16. **Use Case Name:** View Another Profile
 - **Summary:** User is logged in can see the profile and recipes of another user.
-- **Actor(s):** User
+- **Actor(s):** User, System
 - **Pre-condition:** More than one user exists
 - **Trigger:** User clicks on another user’s username **Tag Name** link
 - **Primary Sequence:**
@@ -399,7 +399,7 @@
 
 17. **Use Case Name:** Delete Profile
 - **Summary:** User is able to delete their profile and all of their recipes will be auto deleted
-- **Actor(s):** User
+- **Actor(s):** User, System
 - **Pre-condition:** User has an account, and at least 1 other user exists.
 - **Trigger:** User clicks on **Delete My Profile** link
 - **Primary Sequence:**
@@ -419,7 +419,7 @@
 
 18. **Use Case Name:** Follow Another Profile
 - **Summary:** User can set or update one single favorite other user.
-- **Actor(s):** User
+- **Actor(s):** User, System
 - **Pre-condition:** More than one user exists
 - **Trigger:** User clicks on **Follow** link
 - **Primary Sequence:**
