@@ -18,12 +18,10 @@
 17. User is able to delete their profile and all of their recipes will be auto deleted.
 18. User can set or update one single favorite other user.
 
-<using the syntax [](images/ui1.png) add images in a folder called images/ and place sketches of your webpages>
-
 ## Non-functional Requirements
 1. The system must use SQL for the database
 2. The system must use Flask as the web framework
-## Use Cases <Le Duy Nguyen>
+## Use Cases
 
 1. **Use Case Name:** User Registration
 - **Summary:** A visitor can create an account by providing a username, email, and password.
@@ -441,4 +439,36 @@
 		- User loses the old follow, because the new one replaces the old one
 	-**7c. User clicks “follow” when they are already following that user:**
 		- User instead unfollows that user
----
+
+## Mockups
+
+### Login Page
+![Image](images/login.png)
+
+### Register Page
+![Image](images/register.png)
+
+### Home Page
+![Image](images/homepage.png)
+
+### Recipe Page
+![Image](images/recipepage2.png)
+
+![Image](images/recipepage.png)
+
+### All Recipes Page
+![Image](images/allrecipespage.png)
+
+### My Recipes Page
+![Image](images/myrecipespage.png)
+
+### User's Recipes Page
+![Image](images/user'srecipes.png)
+
+### User Profile Page
+![Image](images/userprofile.png)
+
+### User Following Page
+![Image](images/followingpage.png)
+
+
