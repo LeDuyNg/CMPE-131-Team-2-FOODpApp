@@ -184,5 +184,5 @@
 - Everyone to work on structure of the user model.
 - Decided when the next meeting will be and started on **Milestone 2** assignment.
 
-- Tentative schedule of future meetings - `Saturday 7pm` or `Sunday 7pm` depending on Jason's availability. Friday didn't work for Angelina.
+- Tentative schedule of future meetings - `Saturday 7pm` or `Sunday 7pm` depending on Jason's availability. Friday didn't work for Angelina
 
