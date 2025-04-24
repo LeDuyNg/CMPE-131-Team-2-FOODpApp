@@ -1,0 +1,116 @@
+body {
+	&.login,
+	&.register { /*use this image settings for 2 pages*/
+		background-image: url("mainbackground.png");
+	}
+	
+	&.home {
+		background-image: url("defaultbackground.png");
+	}
+		
+	background-size: 900px;
+	background-position: left -100px right -100px;
+	background-repeat: no-repeat;
+	background-color: #99a146;
+}
+
+.login-content,
+.register-content {
+	position:  relative;
+	left: 160px;
+
+	input {
+		display: block;
+		width: 220px;
+		height: 50px;
+		margin-bottom: 10px;
+		background-color: #f6f2e6;
+		border: 1px solid #623d3d;
+		border-radius: 4px;
+		box-shadow: 5px 5px 2px #e0baa5;
+		padding-left: 105px;
+	}
+	
+	.input-text {
+		position: relative;
+		top: -45px;
+		left: 10px;
+		height: 0;
+	}
+}
+
+.login-content {
+	top:  200px;
+}
+
+div.button {
+	display: inline-block;
+	width: 81px;
+	height: 20px;
+	margin-right: 10px;
+	background-color: #f6f2e6;
+	border: 1px solid #623d3d;
+	border-radius: 4px;
+	box-shadow: 2px 2px 2px #e0baa5;
+	padding: 5px 10px;
+	
+	a {
+		text-decoration: none;
+		
+	}
+	
+}
+
+.register-content {
+	top:  160px;
+	
+	.register-text {
+		padding-left: 20px;
+	}
+	
+	.go-circle {
+		width: 60px;
+		height: 60px;
+		background-color: #ffc654;
+		border-radius: 50%;
+		position: relative;
+		top: -62px;
+		left: 250px;
+		
+		.go-arrow {
+			width: 35px;
+			height:35px;
+			border: 2px solid black;
+			border-left: 0;
+			border-top: 0;
+			transform: rotate(-45deg);
+			position: relative;
+			top: 11px;
+			left: 10px;
+			
+			a {
+				display: inline-block;
+				transform: rotate(45deg);
+				text-decoration: none;
+				position: relative;
+				left: 2px;
+				top: 5px;
+			}
+		}
+	}
+}
+
+.home {
+	.button {
+		width: 200px;
+		display: block;
+	}
+	
+	.links {
+		display: inline-block;
+	}
+	
+	.recipe {
+		display: inline-block;
+	}
+}

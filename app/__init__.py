@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
-from flask_login import LoginManager
+# from flask_login import LoginManager
 
 # Create a Flask application instance
 myapp_obj = Flask(__name__)
@@ -19,16 +19,16 @@ myapp_obj.config.from_mapping(
 db = SQLAlchemy(myapp_obj)
 
 # Initialize the LoginManager for managing user authentication
-login = LoginManager()
-login.init_app(myapp_obj)  # Link the LoginManager with the Flask app
-login.login_view = "login"  # If an unauthorized user tries to access a protected route, they will be redirected to the 'login' route
-login.login_message = "You need to log in to access this page."  # Custom message that will be shown to unauthorized users
+#login = LoginManager()
+#login.init_app(myapp_obj)  # Link the LoginManager with the Flask app
+#login.login_view = "login"  # If an unauthorized user tries to access a protected route, they will be redirected to the 'login' route
+#login.login_message = "You need to log in to access this page."  # Custom message that will be shown to unauthorized users
 
 # Import routes and models after app initialization to avoid circular imports
 from app import routes, models
-from app.models import User
+# from app.models import User
 
 # Define the user loader function that Flask-Login will use to get the user object
-@login.user_loader
-def load_user(id):
-    return User.query.get(int(id))  # Fetch the user by ID from the database
+#@login.user_loader
+#def load_user(id):
+    #return User.query.get(int(id))  # Fetch the user by ID from the database

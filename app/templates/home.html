@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class = "links"> 
+		<div class = "welcome-text"> WELCOME TO HOME PAGE: </div>
+		<div class = "button">
+			 <a href = "{{url_for('login')}}" id = "log-in"> ALL RECIPES </a> <!--will be adding different links later-->
+		 </div>
+		 <div class = "button">
+			 <a href = "{{url_for('login')}}" id = "log-in"> MY RECIPES </a> 
+		 </div>
+		 <div class = "button">
+			 <a href = "{{url_for('login')}}" id = "log-in"> FOLLOWING </a> 
+		 </div>
+		 <div class = "button">
+			 <a href = "{{url_for('login')}}" id = "log-in"> MY PROFILE </a> 
+		 </div>
+		
+	</div>
+	
+	<div class = "recipe"> 
+		<div class = "button"> RECIPE OF THE DAY </div>
+		<div class = "content"> Random future recipe </div>
+	</div>
+{% endblock %}

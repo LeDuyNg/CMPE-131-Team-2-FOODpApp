@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class = "register-content"> 
+		<div class = "register-text"> TO REGISTER ENTER: </div>
+		<input id = "user">
+		<div class = "input-text"> NAME: </div>
+		<input id = "pass" type = "password">
+		<div class = "input-text"> PASSWORD: </div>
+		<input id = "email">
+		<div class = "input-text"> EMAIL: </div>
+		
+		<div class = "go-circle"> 
+			<div class = "go-arrow">
+				 <a href = "{{url_for('register')}}" id = "register"> GO </a> 
+			 </div>
+
+		</div>
+	</div>
+{% endblock %}
