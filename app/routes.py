@@ -68,18 +68,31 @@ def logout():
 @myapp_obj.route('/login', methods=['GET', 'POST'])
 @myapp_obj.route('/', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()  # Create form for user to log in
-    if current_user.is_authenticated:  # If the user is already logged in
-        return redirect('/homepage')  # Redirect to the home page
+    form = LoginForm()
 
-    if request.method == 'POST':  # If the form is submitted
-        user = User.query.filter_by(email=form.email.data).first()  # Query for the user by username
-        if user is not None and user.check_password(password=form.password.data):  # Check if the password is correct
-            login_user(user)  # Log the user in
-            return redirect("/homepage")  # Redirect to the home page
+    # If the user is already logged in, redirect to the homepage
+    if current_user.is_authenticated:
+        return redirect('/homepage')
+
+    # Check if the form is submitted and passes validation (e.g., required fields are filled)
+    if form.validate_on_submit():
+        # Look for a user in the database with the provided email
+        user = User.query.filter_by(email=form.email.data).first()
+
+        # If a user exists and the password is correct, log the user in
+        if user and user.check_password(form.password.data):
+            login_user(user)  # Log the user in using Flask-Login
+            return redirect('/homepage')  # Redirect to homepage after successful login
         else:
-            flash("Invalid email or password", "danger")  # Show an error message if login fails
-    return render_template("test_login.html", form=form)  # Render login.html and pass the form
+            # Flash an error message if email or password is incorrect
+            flash("Invalid email or password", "danger")
+
+    # If it's a POST request but the form didn't validate (e.g., missing fields), show a generic warning
+    elif request.method == 'POST':
+        flash("Please fill out all fields correctly.", "danger")
+
+    # Render the login form template with the form object passed in
+    return render_template("test_login.html", form=form)
 
 # Route for creating a new user account
 @myapp_obj.route("/register_account", methods=['GET', 'POST'])
