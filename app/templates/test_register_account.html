@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Register Account</h1>
+<form action="" method="POST" novalidate>
+    {{form.hidden_tag()}}
+    <p> {{form.email.label}}</br>
+        <div>
+            {{ form.email(class="form-control") }}
+            {% for error in form.email.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div></p>
+
+    <p> {{form.username.label}}</br>
+    {{form.username()}}</p>
+
+    <p>{{form.password.label}}</br>
+        <div>
+            {{ form.password(class="form-control") }}
+            {% for error in form.password.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div></p>
+
+    <p>{{form.submit()}}</p>
+</form>
+<a href = "{{url_for('login')}}">Cancel</a>
+{% endblock %}
