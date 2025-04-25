@@ -9,17 +9,17 @@
     <form action="" method="POST" novalidate>
         {{form.hidden_tag()}}
 
-        <p> {{form.title.label}}</br>
-        {{form.title()}}</p>
+        <p> {{form.title.label}} </br>
+        {{form.title( value=recipe_to_edit.get_title() )}}</p>
 
         <p> {{form.description.label}}</br>
-        {{form.description()}}</p>
+        {{form.description( value=recipe_to_edit.get_description() )}}</p>
 
         <p> {{form.ingredients.label}}</br>
-        {{form.ingredients()}}</p>
+        {{form.ingredients( value=recipe_to_edit.get_ingredients() )}}</p>
 
         <p> {{form.instructions.label}}</br>
-        {{form.instructions()}}</p>
+        {{form.instructions( value=recipe_to_edit.get_instructions() )}}</p>
 
 
         <p>{{form.submit_recipe()}}</p>
