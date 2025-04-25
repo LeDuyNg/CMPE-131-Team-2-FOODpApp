@@ -68,8 +68,8 @@ def mysinglerecipeadd():
     else:
         # User has invalid input
         print("BAD INPUT")
-    # return render_template("mysinglerecipeadd.html", title = "Add A Recipe", pageClass = "mysinglerecipeadd")  # Render home.html
-    return render_template("test_add_recipe.html", form = form)
+    return render_template("mysinglerecipeadd.html", form=form, title = "Add A Recipe", pageClass = "mysinglerecipeadd")  # Render home.html
+    # return render_template("test_add_recipe.html", form = form)
 
 # Route currently has to be typed in to access the edit page
 @myapp_obj.route("/home/myrecipes/mysinglerecipe/<int:recipe_id>/edit", methods=['GET', 'POST'])
@@ -102,7 +102,7 @@ def mysinglerecipeedit(recipe_id):
     else:
         # User has invalid input
         print("BAD INPUT")
-    return render_template("test_edit_recipe.html", form = form)
+    return render_template("test_edit_recipe.html", form = form, recipe_to_edit=recipe_to_edit)
 
 # Route for logging out the user
 @myapp_obj.route('/logout')
