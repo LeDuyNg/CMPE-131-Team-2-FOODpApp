@@ -14,3 +14,22 @@ class RegisterForm(FlaskForm):
     password = PasswordField('Password', validators=[Length(min=4, max=35)])  # Password field with length constraint
     email = EmailField('Email', validators=[DataRequired(), Email(message="Please enter a valid email address.")])  # Email field, requires data
     submit = SubmitField("Register Account")  # Submit button with the label "Create Account"ta
+
+class RecipeForm(FlaskForm):
+    title = StringField("Title", validators=[validators.Length(min=1, max=80)])
+    description = StringField("Description", validators=[validators.DataRequired()])
+    ingredients = StringField("Ingredients", validators=[validators.DataRequired()])
+    instructions = StringField("Instructions", validators=[validators.DataRequired()])
+    # tags = SelectMultipleField(
+    #     'Tags',
+    #     choices=[
+    #         ('vegan', 'Vegan'),
+    #         ('vegetarian', 'Vegetarian'),
+    #         ('gluten_free', 'Gluten-Free'),
+    #         ('quick', 'Quick'),
+    #         ('healthy', 'Healthy')
+    #     ],
+    #     option_widget=CheckboxInput(),
+    #     widget=ListWidget(prefix_label=False)
+    # )
+    submit_recipe =  SubmitField("submit recipe")

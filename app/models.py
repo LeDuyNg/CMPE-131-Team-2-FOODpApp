@@ -24,3 +24,61 @@ class User(UserMixin, db.Model):
     # Function to represent the user object as a string
     def __repr__(self):
         return '<Username {}>'.format(self.username)
+
+class Recipe(db.Model):
+    # Define columns for the Recipe table
+    id = db.Column(db.Integer, primary_key=True)  # Primary key for recipe ID
+    title = db.Column(db.String(80))  # Column for recipe title with a max length of 80 characters
+    description = db.Column(db.Text, nullable=False)  # Column for recipe description (non-nullable)
+    ingredients = db.Column(db.Text, nullable=False)
+    instructions = db.Column(db.Text, nullable=False)
+
+    created = db.Column(db.DateTime, default=datetime.now())  # Timestamp for when the recipe is created
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # Foreign key to associate with a User
+    created = db.Column(db.DateTime, default=datetime.now())
+    num_of_rating = db.Column(db.Integer, default=0)
+    total_rating = db.Column(db.Integer, default=0)
+    tags = db.Column(db.JSON, default=[])
+
+    def rate_recipe(self, rating):
+        self.total_rating += rating
+        self.num_of_rating += 1
+        db.session.commit()
+
+    def set_title(self, new_title):
+        self.title = new_title
+        db.session.commit()
+
+    def get_title(self):
+        return self.title
+
+    def set_description(self, new_description):
+        self.description = new_description
+        db.session.commit()
+
+    def get_description(self):
+        return self.description
+
+    def set_instructions(self, new_instructions):
+        self.instructions = new_instructions
+        db.session.commit()
+
+    def get_instructions(self):
+        return self.instructions
+
+    def set_ingredients(self, new_ingredients):
+        self.ingredients = new_ingredients
+        db.session.commit()
+
+    def get_ingredients(self):
+        return self.ingredients
+
+    # def set_tags(self, new_tags):
+    #     self.tags = json.dumps(new_tags)
+    #     db.session.commit()
+    #
+    # def get_tags(self):
+    #     try:
+    #         return json.loads(self.tags)
+    #     except (TypeError, json.JSONDecodeError):
+    #         return []

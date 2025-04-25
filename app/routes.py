@@ -1,8 +1,8 @@
 
 from app import myapp_obj
 from flask import render_template, redirect, request, flash
-from app.forms import LoginForm, RegisterForm
-from app.models import User
+from app.forms import LoginForm, RegisterForm, RecipeForm
+from app.models import User, Recipe
 from app import db
 from flask_login import current_user, login_required, login_user, logout_user
 
@@ -48,9 +48,28 @@ def mysinglerecipeview():
     return render_template("mysinglerecipeview.html", title = "My Recipe", pageClass = "mysinglerecipeview")  # Render home.html
 
 # Route when you click "add recipe" on "my recipes" page, renders myrecipes page and displays all recipes
-@myapp_obj.route("/home/myrecipes/mysinglerecipeadd")
+@myapp_obj.route("/home/myrecipes/mysinglerecipeadd", methods=['GET', 'POST'])
+@login_required  # Ensure the user is logged in before accessing this route
 def mysinglerecipeadd():
-    return render_template("mysinglerecipeadd.html", title = "Add A Recipe", pageClass = "mysinglerecipeadd")  # Render home.html
+    form = RecipeForm()
+    if form.validate_on_submit(): # Checks if user input is valid
+        # Creates a recipe
+        recipe = Recipe(title=form.title.data,
+                        user_id=current_user.id,
+                        description=form.description.data,
+                        ingredients=form.ingredients.data,
+                        instructions=form.instructions.data,
+                        )
+
+        # Adds a recipe to the database
+        db.session.add(recipe)
+        db.session.commit()
+        return redirect("/")
+    else:
+        # User has invalid input
+        print("BAD INPUT")
+    # return render_template("mysinglerecipeadd.html", title = "Add A Recipe", pageClass = "mysinglerecipeadd")  # Render home.html
+    return render_template("test_add_recipe.html", form = form)
 
 # Route for logging out the user
 @myapp_obj.route('/logout')
@@ -72,7 +91,7 @@ def login():
 
     # If the user is already logged in, redirect to the homepage
     if current_user.is_authenticated:
-        return redirect('/homepage')
+        return redirect('/home')
 
     # Check if the form is submitted and passes validation (e.g., required fields are filled)
     if form.validate_on_submit():
@@ -82,7 +101,7 @@ def login():
         # If a user exists and the password is correct, log the user in
         if user and user.check_password(form.password.data):
             login_user(user)  # Log the user in using Flask-Login
-            return redirect('/homepage')  # Redirect to homepage after successful login
+            return redirect('/home')  # Redirect to homepage after successful login
         else:
             # Flash an error message if email or password is incorrect
             flash("Invalid email or password", "danger")
