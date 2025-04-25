@@ -1,10 +1,25 @@
 <html>
 <head>
     <title>{{title}}</title>
+<<<<<<< HEAD
 	<link rel = "stylesheet" href = "{{ url_for('static', filename = 'styles.css')}}">
 </head>
 <body class = "{{pageClass}}">
     {% block content %} {% endblock %}
 	
+=======
+</head>
+<body>
+    {% block content %} {% endblock %}
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+>>>>>>> Duy-User-Model-Route
 </body>
 </html>
