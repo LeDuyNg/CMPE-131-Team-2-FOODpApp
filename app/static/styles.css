@@ -176,6 +176,9 @@ div.button.home-button {
 	.links {
 		margin: 30px 20px;
 		
+		.column2 {
+			margin-left: 10px;
+		}
 	}
 	
 	.recipe {
@@ -203,10 +206,45 @@ div.button.home-button {
 .myrecipes {
 	.links {
 		margin-left: 20px;
+		
+		.recipes {
+			width: 700px;
+			height: calc(100vh - 300px);
+			overflow-y: scroll;
+			background-color: #f2e7cb;
+			border: 5px solid #9bb09d;
+			border-radius: 25px;
+			margin-left: 130px;
+			padding: 20px;
+			
+			.button {
+				width: 400px;
+				margin-bottom: 5px;
+			}
+		}
 	}
 	
 	.button {
 		width: 100px;
 	}
 	
+}
+
+.following {
+	.follows {
+		width: 700px;
+		height: calc(100vh - 300px);
+		overflow-y: scroll;
+		background-color: #f2e7cb;
+		border: 5px solid #9bb09d;
+		border-radius: 25px;
+		margin-left: 130px;
+		margin-top: 50px;
+		padding: 20px;
+		
+		.button {
+			width: 400px;
+			margin-bottom: 5px;
+		}
+	}
 }

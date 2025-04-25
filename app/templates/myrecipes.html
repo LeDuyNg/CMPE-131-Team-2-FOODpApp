@@ -9,10 +9,14 @@
 		 </a>
 		 
 		 <!-- WE NEED TO CONNECT THESE TO THE RECIPES-->
+		 <div class = "recipes">
+			{% for i in range(20) %}
+			 <a href = "{{url_for('mysinglerecipeview')}}">
+			 	<div class = "button"> NOT YET FILLED </div>
+			 </a>
+			 {% endfor %}
+		 </div>
 		 
-		 <a href = "{{url_for('mysinglerecipeview')}}" id = "log-in">
-		 	<div class = "button"> NOT YET FILLED </div>
-		 </a>
 
 		 
 		

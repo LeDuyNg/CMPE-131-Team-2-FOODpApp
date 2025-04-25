@@ -2,31 +2,19 @@
 {% block content %}
 	<div class = "welcome-text"> WELCOME TO HOME PAGE SHOWING CREATORS YOU FOLLOW: </div>
 	
-	<div class = "links"> 
+	<div class = "follows"> 
+		{% for i in range(20) %}
 		
-		<a href = "{{url_for('login')}}" id = "log-in">
+		<a href = "{{url_for('myprofile')}}">
 			<div class = "button"> SOME FOLLOW </div>
 		</a>
-		
-		<a href = "{{url_for('login')}}" id = "log-in">
-			<div class = "button"> SOME FOLLOW </div>
-		</a>
-		
-		<a href = "{{url_for('login')}}" id = "log-in">
-			<div class = "button"> SOME FOLLOW </div>
-		</a>
-		
-		<a href = "{{url_for('login')}}" id = "log-in">
-			<div class = "button"> SOME FOLLOW </div>
-		</a>
-		
-		
-		 <!-- The home page button-->
-		 <a href = "{{url_for('home')}}" id = "home">
-		 	<div class = "button"> HOME </div>
-		 </a>
+		{% endfor %}
 		
 	</div>
 	
+	<!-- The home page button-->
+	<a href = "{{url_for('home')}}" id = "home">
+		<div class = "button home-button"> HOME </div>
+	</a>
 	
 {% endblock %}
