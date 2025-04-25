@@ -7,9 +7,7 @@
 
 	<div class = "links"> 
 		 
-		 <div> RECIPE NAME HERE>: </div> <!--FIXME-->
-		 
-		 <a href = "{{url_for('login')}}" id = "log-in">
+		 <a href = "{{url_for('mysinglerecipeadd')}}" id = "log-in">
 		 	<div class = "button">  CANCEL/ ERASE </div>
 		 </a>
 
@@ -21,28 +19,45 @@
 
 	<div class = "recipe-content">
 
-			<div class = "form-field">
-				{{ form.title(class="form-control", id="title", value="title") }}
-			</div>
-
-			{{ form.description(class="form-control", id="description", value="description") }}
-
-			<!-- TEMPERATURE, MEAT AND SEAFOOD ARE OPTIONS-->
+		<div class="form-field">
+            <div class="input-text">{{form.title.label}}:</div>
+            {{ form.title(class="form-control", id="title") }}
+            {% for error in form.title.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
 		
-			{{ form.ingredients(class="form-control", id="ingredients", value="ingredients") }}
-
-			<!-- SWEET/SAVORY/BOTH ARE OPTIONS-->
-			<!-- TYPE OF FOOD ARE OPTIONS-->
-
-			{{ form.instructions(class="form-control", id="instructions", value="instructions") }}
-
-			<!-- The home page button-->
-			<a href = "{{url_for('home')}}" id = "home">
-				<div class = "button"> HOME </div>
-			</a>
-
+		<div class="form-field">
+	        <div class="input-text">{{form.description.label}}:</div>
+	        {{ form.description(class="form-control", id="description") }}
+	        {% for error in form.description.errors %}
+	            <div class="text-danger">{{ error }}</div>
+	        {% endfor %}
+	    </div>
+		
+		<div class="form-field">
+            <div class="input-text">{{form.ingredients.label}}:</div>
+            {{ form.ingredients(class="form-control", id="ingredients") }}
+            {% for error in form.ingredients.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+		
+		<div class="form-field">
+            <div class="input-text">{{form.instructions.label}}:</div>
+            {{ form.instructions(class="form-control", id="instructions") }}
+            {% for error in form.instructions.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+		
 	</div>
 
 </form>
+
+<!-- The home page button-->
+<a href = "{{url_for('home')}}" id = "home">
+	<div class = "button home-button"> HOME </div>
+</a>
 
 {% endblock %}

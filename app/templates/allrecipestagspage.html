@@ -1,17 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-	<div class = "welcome-text"> PLEASE SELECT ONE TAG FROM EACH COLUMN, THEN PRESS "GO": </div>
+	<div class = "welcome-text"> WELCOME TO "ALL RECIPES" PAGE: </div>
 	
-	<div class = "login-content">  <!--Here is the searchbar input-->
-		
-		<div > SEARCH BY NAME: </div>
-		<input id = "recipe-search-name">
-	</div>
-	
-	<div class = "links"> 
-		<a href = "{{url_for('home')}}" id = "home">
-			<div class = "button"> HOME </div>
-		 </a>
-	</div>
+	<div class = "links">
+		<div class = "recipes">
+			{% for r in recipes %}
+			 <a href = "{{url_for('mysinglerecipeview')}}">
+			 	<div class = "button"> {{r.title}} </div>
+			 </a>
+			 {% endfor %}
+		 </div>
+	 </div>
+
+	<!-- The home page button-->
+	<a href = "{{url_for('home')}}" id = "home">
+		<div class = "button home-button"> HOME </div>
+	</a>
 
 {% endblock %}
