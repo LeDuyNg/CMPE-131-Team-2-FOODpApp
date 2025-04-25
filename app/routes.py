@@ -71,6 +71,39 @@ def mysinglerecipeadd():
     # return render_template("mysinglerecipeadd.html", title = "Add A Recipe", pageClass = "mysinglerecipeadd")  # Render home.html
     return render_template("test_add_recipe.html", form = form)
 
+# Route currently has to be typed in to access the edit page
+@myapp_obj.route("/home/myrecipes/mysinglerecipe/<int:recipe_id>/edit", methods=['GET', 'POST'])
+@login_required  # Ensure the user is logged in before accessing this route
+def mysinglerecipeedit(recipe_id):
+    recipe_to_edit = Recipe.query.get(recipe_id)
+
+    # Checks if user is the owner of the recipe
+    if recipe_to_edit.user_id != current_user.id:
+        flash("You do not have access to this recipe")
+        return redirect("/")
+
+    # Check if delete button is pressed
+    if request.method == 'POST':
+        if request.form['submit_button'] == 'DELETE RECIPE!':
+            db.session.delete(recipe_to_edit)   # Deletes Recipe
+            db.session.commit()
+            flash(f"{recipe_to_edit.get_title()} has been deleted")
+            return redirect('/')
+
+    form = RecipeForm()
+    if form.validate_on_submit(): # Checks if user input is valid
+        # Edits a recipe
+        recipe_to_edit.set_title(form.title.data)
+        recipe_to_edit.set_description(form.description.data)
+        recipe_to_edit.set_ingredients(form.ingredients.data)
+        recipe_to_edit.set_instructions(form.instructions.data)
+
+        return redirect("/")
+    else:
+        # User has invalid input
+        print("BAD INPUT")
+    return render_template("test_edit_recipe.html", form = form)
+
 # Route for logging out the user
 @myapp_obj.route('/logout')
 def logout():

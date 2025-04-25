@@ -1,0 +1,30 @@
+<html>
+<head>
+    <title>Edit a recipe</title>
+</head>
+<body>
+    <h1>Edit a Recipe</h1>
+    <form action="" method="POST" novalidate>
+        {{form.hidden_tag()}}
+
+        <p> {{form.title.label}}</br>
+        {{form.title()}}</p>
+
+        <p> {{form.description.label}}</br>
+        {{form.description()}}</p>
+
+        <p> {{form.ingredients.label}}</br>
+        {{form.ingredients()}}</p>
+
+        <p> {{form.instructions.label}}</br>
+        {{form.instructions()}}</p>
+
+
+        <p>{{form.submit_recipe()}}</p>
+    </form>
+
+    <form method="POST">
+        <input type="submit" name="submit_button" value="DELETE RECIPE!">
+    </form>
+</body>
+</html>
