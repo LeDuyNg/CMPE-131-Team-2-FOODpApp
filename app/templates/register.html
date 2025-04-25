@@ -1,23 +1,38 @@
 {% extends "base.html" %}
 {% block content %}
 	<div class = "register-content"> 
-		<div class = "register-text"> TO REGISTER ENTER: </div>
-		<input id = "user">
-		<div class = "input-text"> NAME: </div>
-		<input id = "pass" type = "password">
-		<div class = "input-text"> PASSWORD: </div>
-		<input id = "email">
-		<div class = "input-text"> EMAIL: </div>
+		<form action="" method="POST" novalidate>
+			{{ form.hidden_tag() }}
+			<div class="form-field">
+				<div class="input-text">EMAIL:</div>
+				{{ form.email(class="form-control", id="email") }}
+				{% for error in form.email.errors %}
+					<div class="text-danger">{{ error }}</div>
+				{% endfor %}
+			</div>
+
+			<div class="form-field">
+				<div class="input-text">USERNAME:</div>
+				{{ form.username(class="form-control", id="username") }}
+			</div>
+
+			<div class="form-field">
+				<div class="input-text">PASSWORD:</div>
+				{{ form.password(class="form-control", id="password") }}
+				{% for error in form.password.errors %}
+					<div class="text-danger">{{ error }}</div>
+				{% endfor %}
+			</div>
+
+			<div class = "buttons">
+				<a href = "{{url_for('login')}}" id = "register">
+					<div class = "button"> CANCEL </div>
+				</a>
+				{{ form.submit(class="register-button", id="register") }}
+			</div>
+		</form>
 		
-		<div class = "go-circle">  <!--this one is for the round go button--> 
-			
-			 <div class = "go-arrow">
-				<a href = "{{url_for('register')}}" id = "register"> GO </a>
-			 </div>  
-		</div>
-		<a href = "{{url_for('register')}}" id = "register">
-		 	<div class = "button"> CANCEL </div>
-		</a> 
+ 
 		
 	</div>
 {% endblock %}

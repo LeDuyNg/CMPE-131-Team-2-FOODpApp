@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired, Length, Email
 class LoginForm(FlaskForm):
     email = EmailField('Email', validators=[DataRequired(), Email(message="Please enter a valid email address.")])  # Email field, requires data
     password = PasswordField('Password', validators=[Length(min=4, max=35)])  # Password field with a length constraint
-    submit = SubmitField("Sign in")  # Submit button with the label "Sign in"
+    submit = SubmitField("LOG IN")  # Submit button with the label "Sign in"
 
 # Form for creating a new account
 class RegisterForm(FlaskForm):

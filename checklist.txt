@@ -1,0 +1,3 @@
+1. A visitor can create an account by providing a username, email, and password. -> DONE
+2. Registered users can log in using their email and password. -> DONE
+3. Logged-in users can log out of their account securely. -> DONE
