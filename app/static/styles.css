@@ -166,7 +166,7 @@ a {
 		line-height: 30px;       /* vertical alignment */
 		text-align: center;      /* horizontal alignment */
 
-		padding: 0;
+		padding: 0;  
 
 		width: 100px;
 		height: 30px;
@@ -175,6 +175,7 @@ a {
 		&:hover {
 			background-color: #ffd18f;
 		}
+	}
 }
 
 .welcome-text {
@@ -186,7 +187,7 @@ div.button.home-button {
 	position: absolute;
 	left: 28px;
 	bottom: 30px;
-	width: 80px;
+	width: 200px;
 	height: 33px;
     margin-bottom: 20px;
     padding-top: 17px;
