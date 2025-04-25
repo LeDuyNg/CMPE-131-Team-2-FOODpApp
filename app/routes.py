@@ -1,6 +1,6 @@
 
 from app import myapp_obj
-from flask import render_template
+from flask import render_template, redirect
 
 # Login route (landing page), renders home page and displays all recipes
 @myapp_obj.route("/")
@@ -47,3 +47,8 @@ def mysinglerecipeview():
 @myapp_obj.route("/home/myrecipes/mysinglerecipeadd")
 def mysinglerecipeadd():
     return render_template("mysinglerecipeadd.html", title = "Add A Recipe", pageClass = "mysinglerecipeadd")  # Render home.html
+
+# Route to log out, redirects to landing page
+@myapp_obj.route("/logout")
+def logout():
+    return redirect("/");

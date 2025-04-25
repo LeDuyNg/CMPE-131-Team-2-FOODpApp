@@ -17,6 +17,9 @@ body {
 	background-position: left -100px right -100px;
 	background-repeat: no-repeat;
 	background-color: #99a146;
+	
+	font-family: "Futura";
+	
 }
 
 .login-content,
@@ -43,6 +46,13 @@ body {
 		left: 10px;
 		height: 0;
 	}
+	
+	div.button {
+		display: inline-block;
+		width: 81px;
+		height: 20px;
+		margin-right: 10px;
+	}
 }
 
 .following-content,
@@ -66,18 +76,21 @@ body {
 
 .login-content {
 	top:  200px;
+	
+	
 }
 
 div.button {
-	display: inline-block;
-	width: 81px;
-	height: 20px;
-	margin-right: 10px;
 	background-color: #f6f2e6;
 	border: 1px solid #623d3d;
 	border-radius: 4px;
 	box-shadow: 2px 2px 2px #e0baa5;
 	padding: 5px 10px;
+	color: #6f7251;
+	
+	&:hover {
+		background-color: #ffd18f;
+	}
 }
 
 a {
@@ -128,10 +141,14 @@ a {
 	margin: 30px 20px;
 }
 
-.home-button {
+div.button.home-button {
 	position: absolute;
 	left: 28px;
 	bottom: 30px;
+	width: 200px;
+	height: 33px;
+    margin-bottom: 20px;
+    padding-top: 17px;
 }
 
 .myprofile {
@@ -181,4 +198,15 @@ a {
 			padding: 20px;
 		}
 	}
+}
+
+.myrecipes {
+	.links {
+		margin-left: 20px;
+	}
+	
+	.button {
+		width: 100px;
+	}
+	
 }
