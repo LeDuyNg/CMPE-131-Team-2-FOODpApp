@@ -108,5 +108,3 @@ def register_account():
     else:
         return render_template("test_register_account.html", title="Create Account", form=form)
     
-
-
