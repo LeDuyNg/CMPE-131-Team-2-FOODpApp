@@ -7,13 +7,14 @@
 		<div class = "input-text"> PASSWORD: </div>
 		
 		<div class = "buttons"> 
-			<div class = "button">
-				 <a href = "{{url_for('login')}}" id = "log-in"> LOG-IN </a> 
-			 </div>
-			<div class = "button">
-				 <a href = "{{url_for('register')}}" id = "register"> REGISTER </a> 
-			 </div>
+			<a href = "{{url_for('login')}}" id = "log-in">
+				<div class = "button"> LOG-IN </div>
+			</a> 
 			
+			<a href = "{{url_for('register')}}" id = "register">
+				<div class = "button"> REGISTER </div>
+			</a> 
 		</div>
+		
 	</div>
 {% endblock %}

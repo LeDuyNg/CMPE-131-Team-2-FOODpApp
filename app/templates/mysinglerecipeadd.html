@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class = "welcome-text"> WELCOME TO THE PAGE WHERE YOU CAN CREATE A RECIPE: </div>
+
+	<div class = "links"> 
+		 
+		 <div> RECIPE NAME HERE>: </div> <!--FIXME-->
+		 
+		 <a href = "{{url_for('login')}}" id = "log-in">
+		 	<div class = "button">  CANCEL/ ERASE </div> 
+		 </a>
+		 <a href = "{{url_for('login')}}" id = "log-in">
+		 	<div class = "button">  ADD RECIPE </div> 
+		 </a>
+		 
+		 
+	</div>
+	
+	<div class = "recipe-content"> 
+		<input id = "recipe-name">
+		<div class = "input-text"> RECIPE NAME: </div>
+		
+		<!-- TEMPERATURE, MEAT AND SEAFOOD ARE OPTIONS-->
+		
+		<input id = "ingredients" type = "ingredients">
+		<div class = "input-text"> INGREDIENTS: </div>
+		
+		<!-- SWEET/SAVORY/BOTH ARE OPTIONS-->
+		<!-- TYPE OF FOOD ARE OPTIONS-->
+		
+		
+		<input id = "ingredients" type = "ingredients">
+		<div class = "input-text"> DIRECTIONS: </div>
+		
+		
+		<!-- The home page button-->
+		<a href = "{{url_for('home')}}" id = "home">
+			<div class = "button"> HOME </div>
+		</a>
+		
+	</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class = "welcome-text"> WELCOME TO "MY PROFILE" PAGE: </div>
+
+	<div class = "links"> 
+		<div class = "column1">
+			 <a href = "{{url_for('login')}}" id = "log-in">
+				<div class = "button"> LOG OUT </div>
+			 </a> 
+			 
+			 <a href = "{{url_for('login')}}" id = "log-in">
+			 	<div class = "button"> DELETE MY PROFILE </div>
+			 </a>
+			 
+			 <a href = "{{url_for('following')}}" id = "log-in">
+			 	<div class = "button"> FOLLOWING </div>
+			 </a>
+		</div>
+		 
+		<div class = "column2"> 
+			
+			 <a href = "{{url_for('mysinglerecipeadd')}}" id = "log-in">
+			 	<div class = "button"> ADD A RECIPE </div>
+			 </a>
+			 
+			 <a href = "{{url_for('myrecipes')}}" id = "log-in">
+			 	<div class = "button"> UPDATE A RECIPE </div>
+			 </a>
+			 
+			 <a href = "{{url_for('myrecipes')}}" id = "log-in">
+			 	<div class = "button"> DELETE A RECIPE </div>
+			 </a>
+	
+			 <a href = "{{url_for('myrecipes')}}" id = "log-in">
+			 	<div class = "button"> MY RECIPES </div>
+			 </a>
+		 
+		 </div>
+		 
+	</div>
+	
+	<!-- The home page button-->
+	 <a href = "{{url_for('home')}}" id = "home">
+	 	<div class = "button home-button"> HOME </div>
+	 </a>
+	
+{% endblock %}

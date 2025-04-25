@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class = "welcome-text"> WELCOME TO THE PAGE DESCRIBING YOUR RECIPE: </div>
+
+	<div class = "links"> 
+	
+		 <div> RECIPE NAME HERE>: </div> <!--FIXME-->
+		 
+		 
+		 <a href = "{{url_for('login')}}" id = "log-in">
+		 	<div class = "button">  UPDATE RECIPE </div> 
+		 </a>
+		 
+		 <a href = "{{url_for('login')}}" id = "log-in">
+		 	<div class = "button">  DELETE RECIPE </div> 
+		 </a>
+		 
+		 
+		 <!-- WE NEED TO ADD THE RECIPE DESCRIPTION HERE-->
+
+
+		 
+		 <!-- The home page button-->
+		 <a href = "{{url_for('home')}}" id = "home">
+		 	<div class = "button"> HOME </div>
+		 </a>
+		
+	</div>
+
+{% endblock %}

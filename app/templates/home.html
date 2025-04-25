@@ -1,24 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
-	<div class = "links"> 
-		<div class = "welcome-text"> WELCOME TO HOME PAGE: </div>
-		<div class = "button">
-			 <a href = "{{url_for('login')}}" id = "log-in"> ALL RECIPES </a> <!--will be adding different links later-->
-		 </div>
-		 <div class = "button">
-			 <a href = "{{url_for('login')}}" id = "log-in"> MY RECIPES </a> 
-		 </div>
-		 <div class = "button">
-			 <a href = "{{url_for('login')}}" id = "log-in"> FOLLOWING </a> 
-		 </div>
-		 <div class = "button">
-			 <a href = "{{url_for('login')}}" id = "log-in"> MY PROFILE </a> 
-		 </div>
-		
-	</div>
+	<div class = "welcome-text"> WELCOME TO HOME PAGE: </div>
 	
-	<div class = "recipe"> 
-		<div class = "button"> RECIPE OF THE DAY </div>
-		<div class = "content"> Random future recipe </div>
+	<div class = "home-container">
+		<div class = "links"> 
+			
+			 <a href = "{{url_for('allrecipestags')}}" id = "log-in">
+				<div class = "button"> ALL RECIPES </div>
+			 </a>
+			 
+			 <a href = "{{url_for('myrecipes')}}" id = "log-in">
+			 	<div class = "button"> MY RECIPES </div>
+			 </a> 
+			 
+			 <a href = "{{url_for('following')}}" id = "log-in">
+				 <div class = "button"> FOLLOWING </div>
+			 </a> 
+			 
+			 <a href = "{{url_for('myprofile')}}" id = "log-in">
+				<div class = "button"> MY PROFILE </div>
+			 </a>
+			
+		</div>
+		
+		<div class = "recipe"> 
+			<div class = "label"> RECIPE OF THE DAY: </div>
+			<div class = "content"> Random future recipe </div>
+		</div>
 	</div>
 {% endblock %}
