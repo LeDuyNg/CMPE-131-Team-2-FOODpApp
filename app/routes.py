@@ -6,8 +6,6 @@ from app.models import User
 from app import db
 from flask_login import current_user, login_required, login_user, logout_user
 
-
-
 # All recipes tags route, renders home page and displays the page where you can select tags to see recipes.
 @myapp_obj.route("/home/allrecipestagspage")
 def allrecipestags():
@@ -47,25 +45,33 @@ def mysinglerecipeadd():
 @myapp_obj.route('/login', methods=['GET', 'POST'])
 @myapp_obj.route('/', methods=['GET', 'POST'])
 def login():
+    # Create an instance of the login form
     form = LoginForm()
 
-    # If the user is already logged in, redirect to the homepage
+    # If the user is already authenticated, redirect them to the homepage
     if current_user.is_authenticated:
         return redirect('/home')
     
+    # Check if the form is submitted and passes validation
     if form.validate_on_submit():
+        # Query the database for a user with the entered email
         user = User.query.filter_by(email=form.email.data).first()
+
+        # If user exists and password is correct, log them in and redirect to homepage
         if user and user.check_password(form.password.data):
             login_user(user)
             return redirect('/home')
         else:
+            # Invalid email or password
             flash("Invalid email or password", "danger")
+    
+    # If request method is POST but validation failed (e.g., empty or invalid fields)
     elif request.method == 'POST':
-        # This block is hit if POST but form validation failed (e.g., empty fields)
         flash("Please fill out all fields correctly.", "danger")
 
-    # Render the login form template with the form object passed in
-    return render_template("login.html", title = "Login", form=form, pageClass = "login")
+    # Render the login page with the form
+    return render_template("login.html", title="Login", form=form, pageClass="login")
+
 
 
 # Route for creating a new user account
