@@ -245,7 +245,8 @@ div.button.home-button {
 	}
 }
 
-.myrecipes {
+.myrecipes,
+.allrecipestagspage {
 	.links {
 		margin-left: 20px;
 		
@@ -260,7 +261,7 @@ div.button.home-button {
 			padding: 20px;
 			
 			.button {
-				width: 400px;
+				width: 680px;
 				margin-bottom: 5px;
 			}
 		}
@@ -288,5 +289,51 @@ div.button.home-button {
 			width: 400px;
 			margin-bottom: 5px;
 		}
+	}
+}
+
+.mysinglerecipeadd {
+	.links {
+		.button {
+			width: 130px;
+			margin-bottom: 10px;
+		}
+		
+		input {
+			font-family: inherit;
+			font-size: inherit;
+			color: inherit;
+			text-transform: uppercase;
+			border: none;
+			background-color: #f6f2e6;
+			width: 100%;
+			&:hover {
+				background-color: #ffd18f;
+			}
+		}
+	}
+	.recipe-content {
+		
+		input {
+			width: 600px;	
+		}
+		
+		textarea {
+			resize: none;
+			width: 600px;
+			height: 170px;
+			padding: 40px 10px 10px 10px;
+			overflow-y: scroll;
+			background-color: #f6f2e6;
+			border: 1px solid #623d3d;
+			border-radius: 4px;
+			box-shadow: 5px 5px 2px #e0baa5;
+		}
+	}
+}
+
+.allrecipestagspage {
+	.links {
+		margin-top: 50px;
 	}
 }

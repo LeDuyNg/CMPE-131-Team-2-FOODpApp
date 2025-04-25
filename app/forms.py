@@ -17,9 +17,9 @@ class RegisterForm(FlaskForm):
 
 class RecipeForm(FlaskForm):
     title = StringField("Title", validators=[validators.Length(min=1, max=80)])
-    description = StringField("Description", validators=[validators.DataRequired()])
-    ingredients = StringField("Ingredients", validators=[validators.DataRequired()])
-    instructions = StringField("Instructions", validators=[validators.DataRequired()])
+    description = TextAreaField("Description", validators=[validators.DataRequired()])
+    ingredients = TextAreaField("Ingredients", validators=[validators.DataRequired()])
+    instructions = TextAreaField("Instructions", validators=[validators.DataRequired()])
     # tags = SelectMultipleField(
     #     'Tags',
     #     choices=[

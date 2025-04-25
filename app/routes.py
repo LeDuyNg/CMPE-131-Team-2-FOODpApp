@@ -9,12 +9,14 @@ from flask_login import current_user, login_required, login_user, logout_user
 # All recipes tags route, renders home page and displays the page where you can select tags to see recipes.
 @myapp_obj.route("/home/allrecipestagspage")
 def allrecipestags():
-    return render_template("allrecipestagspage.html", title = "All Recipes Tags", pageClass = "allrecipestagspage")  # Render home.html
+    recipes = Recipe.query.all();
+    return render_template("allrecipestagspage.html", title = "All Recipes Tags", pageClass = "allrecipestagspage", recipes=recipes)  # Render home.html
 
 # My recipes route, renders myrecipes page and displays all recipes
 @myapp_obj.route("/home/myrecipes")
 def myrecipes():
-    return render_template("myrecipes.html", title = "My Recipes", pageClass = "myrecipes")  # Render home.html
+    recipes = Recipe.query.filter_by(user_id=current_user.id).all();
+    return render_template("myrecipes.html", title = "My Recipes", pageClass = "myrecipes", recipes = recipes)  # Render home.html
 
 # Following route, renders myrecipes page and displays all recipes
 @myapp_obj.route("/home/following")
