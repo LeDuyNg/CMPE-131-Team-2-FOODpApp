@@ -6,22 +6,6 @@ from app.models import User, Recipe
 from app import db
 from flask_login import current_user, login_required, login_user, logout_user
 
-# Login route (landing page), renders home page and displays all recipes
-#@myapp_obj.route("/")
-#def login():
-#    return render_template("login.html", title = "Log In", pageClass = "login")  # Render home.html
-
-# Register route, renders home page and displays all recipes
-@myapp_obj.route("/register")
-def register():
-    return render_template("register.html", title = "Register", pageClass = "register")  # Render home.html
-
-
-# Home route, renders home page and displays all recipes
-@myapp_obj.route("/home")
-def home():
-    return render_template("home.html", title = "Home", pageClass = "home")  # Render home.html
-
 # All recipes tags route, renders home page and displays the page where you can select tags to see recipes.
 @myapp_obj.route("/home/allrecipestagspage")
 def allrecipestags():
@@ -104,13 +88,6 @@ def mysinglerecipeedit(recipe_id):
         print("BAD INPUT")
     return render_template("test_edit_recipe.html", form = form, recipe_to_edit=recipe_to_edit)
 
-# Route for logging out the user
-@myapp_obj.route('/logout')
-def logout():
-    logout_user()  # Log the user out
-    return redirect('/')  # Redirect to the homepage
-
-
 # --------------------------------------------------------------------- #
 # |                                                                    |#
 # |                         User Related Routes                        |#
@@ -120,35 +97,38 @@ def logout():
 @myapp_obj.route('/login', methods=['GET', 'POST'])
 @myapp_obj.route('/', methods=['GET', 'POST'])
 def login():
+    # Create an instance of the login form
     form = LoginForm()
 
-    # If the user is already logged in, redirect to the homepage
+    # If the user is already authenticated, redirect them to the homepage
     if current_user.is_authenticated:
         return redirect('/home')
 
-    # Check if the form is submitted and passes validation (e.g., required fields are filled)
+    # Check if the form is submitted and passes validation
     if form.validate_on_submit():
-        # Look for a user in the database with the provided email
+        # Query the database for a user with the entered email
         user = User.query.filter_by(email=form.email.data).first()
 
-        # If a user exists and the password is correct, log the user in
+        # If user exists and password is correct, log them in and redirect to homepage
         if user and user.check_password(form.password.data):
-            login_user(user)  # Log the user in using Flask-Login
-            return redirect('/home')  # Redirect to homepage after successful login
+            login_user(user)
+            return redirect('/home')
         else:
-            # Flash an error message if email or password is incorrect
+            # Invalid email or password
             flash("Invalid email or password", "danger")
-
-    # If it's a POST request but the form didn't validate (e.g., missing fields), show a generic warning
+    
+    # If request method is POST but validation failed (e.g., empty or invalid fields)
     elif request.method == 'POST':
         flash("Please fill out all fields correctly.", "danger")
 
-    # Render the login form template with the form object passed in
-    return render_template("test_login.html", form=form)
+    # Render the login page with the form
+    return render_template("login.html", title="Login", form=form, pageClass="login")
+
+
 
 # Route for creating a new user account
-@myapp_obj.route("/register_account", methods=['GET', 'POST'])
-def register_account():
+@myapp_obj.route("/register", methods=['GET', 'POST'])
+def register():
     form = RegisterForm()  # Create form for user to create an account
     if form.validate_on_submit():  # Validate the form when the user submits it
         # Create a new user and hash their password
@@ -158,5 +138,16 @@ def register_account():
         db.session.commit()  # Commit the changes to the database
         return redirect("/")  # Redirect to the homepage after account creation
     else:
-        return render_template("test_register_account.html", title="Create Account", form=form)
+        return render_template("register.html", title = "Register", pageClass = "register", form=form)
     
+# Route for logging out the user
+@myapp_obj.route('/logout')
+def logout():
+    logout_user()  # Log the user out
+    return redirect('/')  # Redirect to the homepage
+
+# Home route, renders home page and displays all recipes
+@myapp_obj.route("/home")
+@login_required  # Require the user to be logged in to access this page
+def home():
+    return render_template("home.html", title = "Home", pageClass = "home")  # Render home.html

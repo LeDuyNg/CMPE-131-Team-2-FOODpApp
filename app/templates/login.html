@@ -1,20 +1,44 @@
 {% extends "base.html" %}
 {% block content %}
-	<div class = "login-content"> 
-		<input id = "user">
-		<div class = "input-text"> NAME: </div>
-		<input id = "pass" type = "password">
-		<div class = "input-text"> PASSWORD: </div>
-		
-		<div class = "buttons"> 
-			<a href = "{{url_for('login')}}" id = "log-in">
-				<div class = "button"> LOG-IN </div>
-			</a> 
-			
-			<a href = "{{url_for('register')}}" id = "register">
-				<div class = "button"> REGISTER </div>
-			</a> 
-		</div>
-		
-	</div>
+<div class="login-content">
+    <form action="" method="POST" novalidate>
+        {{ form.hidden_tag() }}
+
+        <!-- Email -->
+        <div class="form-field">
+            <div class="input-text">EMAIL:</div>
+            {{ form.email(class="form-control", id="user") }}
+            {% for error in form.email.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <!-- Password -->
+        <div class="form-field">
+            <div class="input-text">PASSWORD:</div>
+            {{ form.password(class="form-control", id="pass") }}
+            {% for error in form.password.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <!-- Buttons -->
+        <div class="buttons">
+            {{ form.submit(class="login-button", id="sign-in") }}
+            <a href="{{ url_for('register') }}">
+                <div class="button">REGISTER</div>
+            </a>
+        </div>
+    </form>
+    <!-- Show flash messages below the form -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
 {% endblock %}

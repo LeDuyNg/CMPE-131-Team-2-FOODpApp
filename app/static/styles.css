@@ -42,8 +42,8 @@ body {
 	
 	.input-text {
 		position: relative;
-		top: -45px;
-		left: 10px;
+		top: 15px;
+		left: 8px;
 		height: 0;
 	}
 	
@@ -53,6 +53,27 @@ body {
 		height: 20px;
 		margin-right: 10px;
 	}
+	.login-button {
+		display: inline-block;
+		line-height: 30px;       /* vertical alignment */
+		text-align: center;      /* horizontal alignment */
+
+		padding: 0;  
+
+		width: 81px;
+		height: 30px;
+		margin-right: 10px;
+
+		&:hover {
+			background-color: #ffd18f;
+		}
+	}
+
+
+	.form-field {
+		margin-bottom: 10px;
+	}
+	
 }
 
 .following-content,
@@ -79,8 +100,13 @@ body {
 	
 	
 }
-
-div.button {
+.login-button {
+	display: inline-block;
+	width: 81px;
+	height: 20px;
+	margin-right: 10px;
+}
+.button {
 	background-color: #f6f2e6;
 	border: 1px solid #623d3d;
 	border-radius: 4px;
@@ -134,6 +160,22 @@ a {
 			}
 		}
 	}
+
+	.register-button {
+		display: inline-block;
+		line-height: 30px;       /* vertical alignment */
+		text-align: center;      /* horizontal alignment */
+
+		padding: 0;  
+
+		width: 100px;
+		height: 30px;
+		margin-right: 10px;
+
+		&:hover {
+			background-color: #ffd18f;
+		}
+	}
 }
 
 .welcome-text {
@@ -176,6 +218,9 @@ div.button.home-button {
 	.links {
 		margin: 30px 20px;
 		
+		.column2 {
+			margin-left: 10px;
+		}
 	}
 	
 	.recipe {
@@ -203,10 +248,45 @@ div.button.home-button {
 .myrecipes {
 	.links {
 		margin-left: 20px;
+		
+		.recipes {
+			width: 700px;
+			height: calc(100vh - 300px);
+			overflow-y: scroll;
+			background-color: #f2e7cb;
+			border: 5px solid #9bb09d;
+			border-radius: 25px;
+			margin-left: 130px;
+			padding: 20px;
+			
+			.button {
+				width: 400px;
+				margin-bottom: 5px;
+			}
+		}
 	}
 	
 	.button {
 		width: 100px;
 	}
 	
+}
+
+.following {
+	.follows {
+		width: 700px;
+		height: calc(100vh - 300px);
+		overflow-y: scroll;
+		background-color: #f2e7cb;
+		border: 5px solid #9bb09d;
+		border-radius: 25px;
+		margin-left: 130px;
+		margin-top: 50px;
+		padding: 20px;
+		
+		.button {
+			width: 400px;
+			margin-bottom: 5px;
+		}
+	}
 }
