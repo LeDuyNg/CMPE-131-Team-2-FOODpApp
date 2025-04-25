@@ -186,3 +186,53 @@
 
 - Tentative schedule of future meetings - `Saturday 7pm` or `Sunday 7pm` depending on Jason's availability. Friday didn't work for Angelina
 
+
+### 🗓️ 2025-04-22 at 19:00  
+**Attendees:** Le Duy Nguyen, Jason Nguyen, Angelina Ryabechenkova
+
+---
+
+### 🔄 Team Updates: Workload for Milestone 2 has been split, plan of action discussed.
+
+---
+
+#### 👤 Duy Nguyen  
+**Completed:**
+
+- Submitted Milestone 1 link. Finished all of his requirements for Milestone 1 and merged successfully into the GitHub repository.
+
+**To do:**
+- Write the implementation code for 2 requirements for Milestone 1, do the recipe model. Keep the other team members up to date on his project  on the shared Discord channel.
+
+---
+
+#### 👤 Jason Nguyen  
+**Completed:**
+
+-  Finished all of his requirements for Milestone 1 and merged successfully into the GitHub repository.
+
+**To do:**
+- Write the implementation code for 2 requirements for Milestone 1, do the user model.Keep the other team members up to date on his project  on the shared Discord channel. 
+
+
+
+---
+
+#### 👤 Angelina Ryabechenkova  
+**Completed:**
+
+- Finished all of her requirements for Milestone 1 and merged successfully into the GitHub repository. 
+
+**To do:**
+- Do the UI work for the web site, finish 2 requirements, write the 200-word paragraph for Milestone 2.
+
+---
+
+### ✅ Summary of Group Progress
+
+- Each team member shared their thoughts on the **Milestone 2**.
+- The team split the requirements with Duy doing 1,2,3, Jason doing 4,5,6, and Angelina doing 7 and 14. Angelina's portion is smaller ( doesn't have to work on the models) because she will be doing UI.
+- Everyone had a very productive discussion on how the website will function, what we should implement, and what we should stay away from.
+
+- Tentative schedule of future meetings - `Friday 9pm`
+
