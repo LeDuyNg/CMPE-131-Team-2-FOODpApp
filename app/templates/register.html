@@ -9,11 +9,15 @@
 		<input id = "email">
 		<div class = "input-text"> EMAIL: </div>
 		
-		<div class = "go-circle"> 
-			<div class = "go-arrow">
-				 <a href = "{{url_for('register')}}" id = "register"> GO </a> 
-			 </div>
-
+		<div class = "go-circle">  <!--this one is for the round go button--> 
+			
+			 <div class = "go-arrow">
+				<a href = "{{url_for('register')}}" id = "register"> GO </a>
+			 </div>  
 		</div>
+		<a href = "{{url_for('register')}}" id = "register">
+		 	<div class = "button"> CANCEL </div>
+		</a> 
+		
 	</div>
 {% endblock %}

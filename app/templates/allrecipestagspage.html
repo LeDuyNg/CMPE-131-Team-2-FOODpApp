@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class = "welcome-text"> PLEASE SELECT ONE TAG FROM EACH COLUMN, THEN PRESS "GO": </div>
+	
+	<div class = "login-content">  <!--Here is the searchbar input-->
+		
+		<div > SEARCH BY NAME: </div>
+		<input id = "recipe-search-name">
+	</div>
+	
+	<div class = "links"> 
+		<a href = "{{url_for('home')}}" id = "home">
+			<div class = "button"> HOME </div>
+		 </a>
+	</div>
+
+{% endblock %}

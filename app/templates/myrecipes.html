@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class = "welcome-text"> WELCOME TO HOME PAGE CONTAINING ALL OF YOUR RECIPES: </div>
+
+	<div class = "links"> 
+		
+		 <a href = "{{url_for('mysinglerecipeadd')}}" id = "mysinglerecipeadd"> 
+			<div class = "button"> ADD RECIPE  </div>
+		 </a>
+		 
+		 <!-- WE NEED TO CONNECT THESE TO THE RECIPES-->
+		 
+		 <a href = "{{url_for('mysinglerecipeview')}}" id = "log-in">
+		 	<div class = "button"> NOT YET FILLED </div>
+		 </a>
+
+		 
+		 <!-- The home page button-->
+		 <a href = "{{url_for('home')}}" id = "home">
+		 	<div class = "button"> HOME </div>
+		 </a>
+		
+	</div>
+
+{% endblock %}
