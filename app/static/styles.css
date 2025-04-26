@@ -74,6 +74,20 @@ body {
 		margin-bottom: 10px;
 	}
 	
+	.custom-display {
+		display: block;
+		width: 300px;
+		background-color: #f6f2e6;
+		border: 1px solid #623d3d;
+		border-radius: 4px;
+		box-shadow: 5px 5px 2px #e0baa5;
+		padding: 6px 10px;
+		font-size: 14px;
+		line-height: 1;
+		white-space: pre-wrap;
+		overflow-wrap: break-word;
+	  }
+	  
 }
 
 .following-content,
@@ -329,6 +343,42 @@ div.button.home-button {
 			border-radius: 4px;
 			box-shadow: 5px 5px 2px #e0baa5;
 		}
+	}
+}
+
+.mysinglerecipeview {
+	.links {
+		.button {
+			width: 130px;
+			margin-bottom: 10px;
+		}
+	}
+
+	.field {
+		font-family: inherit;
+		font-size: inherit;
+		color: inherit;
+		background-color: #f6f2e6;
+		border: 1px solid #623d3d;
+		border-radius: 4px;
+		box-shadow: 5px 5px 2px #e0baa5;
+		margin-bottom: 10px;
+		padding: 10px;
+	}
+
+	.title {
+		display: flex;
+		width: 600px;
+	}
+	
+	.area {
+		width: 600px;
+		height: 160px;
+		overflow-y: scroll;
+	}
+	
+	.display-label {
+		padding-right: 10px;
 	}
 }
 

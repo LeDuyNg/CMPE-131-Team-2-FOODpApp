@@ -5,7 +5,7 @@
 	<div class = "links">
 		<div class = "recipes">
 			{% for r in recipes %}
-			 <a href = "{{url_for('mysinglerecipeview')}}">
+			 <a href = "{{url_for('mysinglerecipeview', num = r.id)}}">
 			 	<div class = "button"> {{r.title}} </div>
 			 </a>
 			 {% endfor %}
