@@ -68,14 +68,6 @@ def mysinglerecipeedit(recipe_id):
         flash("You do not have access to this recipe")
         return redirect("/")
 
-    # Check if delete button is pressed
-    if request.method == 'POST':
-        if request.form['submit_button'] == 'DELETE RECIPE!':
-            db.session.delete(recipe_to_edit)   # Deletes Recipe
-            db.session.commit()
-            flash(f"{recipe_to_edit.get_title()} has been deleted")
-            return redirect('/')
-
     form = RecipeForm()
     if form.validate_on_submit(): # Checks if user input is valid
         # Edits a recipe
@@ -88,6 +80,15 @@ def mysinglerecipeedit(recipe_id):
     else:
         # User has invalid input
         print("BAD INPUT")
+
+    # Check if delete button is pressed
+    if request.method == 'POST':
+        if request.form['submit_button'] == 'DELETE RECIPE!':
+            db.session.delete(recipe_to_edit)   # Deletes Recipe
+            db.session.commit()
+            flash(f"{recipe_to_edit.get_title()} has been deleted")
+            return redirect('/')
+
     return render_template("test_edit_recipe.html", form = form, recipe_to_edit=recipe_to_edit)
 
 # --------------------------------------------------------------------- #
