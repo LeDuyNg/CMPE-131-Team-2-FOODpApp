@@ -8,30 +8,45 @@ from flask_login import current_user, login_required, login_user, logout_user
 
 # All recipes tags route, renders home page and displays the page where you can select tags to see recipes.
 @myapp_obj.route("/home/allrecipestagspage")
+@login_required  # Ensure the user is logged in before accessing this route
 def allrecipestags():
     recipes = Recipe.query.all();
     return render_template("allrecipestagspage.html", title = "All Recipes Tags", pageClass = "allrecipestagspage", recipes=recipes)  # Render home.html
 
 # My recipes route, renders myrecipes page and displays all recipes
 @myapp_obj.route("/home/myrecipes")
+@login_required  # Ensure the user is logged in before accessing this route
 def myrecipes():
     recipes = Recipe.query.filter_by(user_id=current_user.id).all();
     return render_template("myrecipes.html", title = "My Recipes", pageClass = "myrecipes", recipes = recipes)  # Render home.html
 
 # Following route, renders myrecipes page and displays all recipes
 @myapp_obj.route("/home/following")
+@login_required  # Ensure the user is logged in before accessing this route
 def following():
     return render_template("following.html", title = "Following", pageClass = "following")  # Render home.html
 
 # My profile route, renders myrecipes page and displays all recipes
 @myapp_obj.route("/home/myprofile")
+@login_required  # Ensure the user is logged in before accessing this route
 def myprofile():
     return render_template("myprofile.html", title = "My Profile", pageClass = "myprofile")  # Render home.html
 
 # Route when you click on your recipe, renders myrecipes page and displays all recipes
-@myapp_obj.route("/home/myrecipes/mysinglerecipeview")
-def mysinglerecipeview():
-    return render_template("mysinglerecipeview.html", title = "My Recipe", pageClass = "mysinglerecipeview")  # Render home.html
+@myapp_obj.route("/home/myrecipes/mysinglerecipeview/<int:num>")
+@login_required  # Ensure the user is logged in before accessing this route
+def mysinglerecipeview(num):
+    recipe = Recipe.query.get(num)  # Fetch the recipe by its ID
+    if recipe is None:  # If the recipe does not exist
+        flash("Recipe not found.", "danger")  # Show a flash message
+        return redirect("/home/myrecipes")  # Redirect to the recipes page
+    # Format the ingredients and instructions
+    formatted_ingredients = recipe.format_ingredients(recipe.ingredients)
+    formatted_instructions = recipe.format_instructions(recipe.instructions)
+    show_buttons = (current_user.is_authenticated and recipe.user_id == current_user.id)
+
+    return render_template("mysinglerecipeview.html", title = "My Recipe", pageClass = "mysinglerecipeview",
+                           ingredients=formatted_ingredients, instructions=formatted_instructions, recipe = recipe, show_buttons = show_buttons)  # Render home.html
 
 # Route when you click "add recipe" on "my recipes" page, renders myrecipes page and displays all recipes
 @myapp_obj.route("/home/myrecipes/mysinglerecipeadd", methods=['GET', 'POST'])
@@ -68,7 +83,15 @@ def mysinglerecipeedit(recipe_id):
         flash("You do not have access to this recipe")
         return redirect("/")
 
-    form = RecipeForm()
+    # Check if delete button is pressed
+    if request.method == 'POST':
+        if request.form['submit_button'] == 'DELETE RECIPE!':
+            db.session.delete(recipe_to_edit)   # Deletes Recipe
+            db.session.commit()
+            flash(f"{recipe_to_edit.get_title()} has been deleted")
+            return redirect('/')
+
+    form = RecipeForm(obj = recipe_to_edit)
     if form.validate_on_submit(): # Checks if user input is valid
         # Edits a recipe
         recipe_to_edit.set_title(form.title.data)
@@ -80,15 +103,6 @@ def mysinglerecipeedit(recipe_id):
     else:
         # User has invalid input
         print("BAD INPUT")
-
-    # Check if delete button is pressed
-    if request.method == 'POST':
-        if request.form['submit_button'] == 'DELETE RECIPE!':
-            db.session.delete(recipe_to_edit)   # Deletes Recipe
-            db.session.commit()
-            flash(f"{recipe_to_edit.get_title()} has been deleted")
-            return redirect('/')
-
     return render_template("test_edit_recipe.html", form = form, recipe_to_edit=recipe_to_edit)
 
 # --------------------------------------------------------------------- #

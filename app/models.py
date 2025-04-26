@@ -72,6 +72,20 @@ class Recipe(db.Model):
 
     def get_ingredients(self):
         return self.ingredients
+    
+    # Function to format the ingredients as a list from a comma-separated string
+    def format_ingredients(self, unformatted_list):
+        """Converts a comma-separated string into a list, stripping any extra spaces"""
+        if not unformatted_list:  # Check if the list is empty
+            return []
+        return [element.strip() for element in unformatted_list.split('\n')]  # Split by newline and strip extra spaces
+
+    # Function to format the instructions as a list from a dot-separated string
+    def format_instructions(self, unformatted_list):
+        """Converts a dot-separated string into a list, stripping any extra spaces"""
+        if not unformatted_list:  # Check if the list is empty
+            return []
+        return [element.strip() for element in unformatted_list.split('.')]  # Split by dot and strip extra spaces
 
     # def set_tags(self, new_tags):
     #     self.tags = json.dumps(new_tags)

@@ -3,28 +3,61 @@
 	<div class = "welcome-text"> WELCOME TO THE PAGE DESCRIBING YOUR RECIPE: </div>
 
 	<div class = "links"> 
+		 
+		{% if show_buttons %}
+		  <a href="{{ url_for('mysinglerecipeedit', recipe_id = recipe.id) }}">
+		 	<div class = "button">  UPDATE RECIPE </div>
+		  </a>
+		 
+ 		  <!--Un comment this line later-->
+ 		  <!-- <a href="{{ url_for('login') }}" class="button">DELETE RECIPE</a> -->
+ 		 {% endif %}		 
+	</div>
 	
-		 <div> RECIPE NAME HERE>: </div> <!--FIXME-->
-		 
-		 
-		 <a href = "{{url_for('login')}}" id = "log-in">
-		 	<div class = "button">  UPDATE RECIPE </div> 
-		 </a>
-		 
-		 <a href = "{{url_for('login')}}" id = "log-in">
-		 	<div class = "button">  DELETE RECIPE </div> 
-		 </a>
-		 
-		 
-		 <!-- WE NEED TO ADD THE RECIPE DESCRIPTION HERE-->
-
-
-		 
-		 <!-- The home page button-->
-		 <a href = "{{url_for('home')}}" id = "home">
-		 	<div class = "button"> HOME </div>
-		 </a>
+	 <div class = "recipe-content">
+		
+		<div class="title field">
+			<div class="display-label">Title:</div>
+			<div class="display-content">{{ recipe.title }}</div>
+		</div>
+		
+		<div class="area field">
+			<div class="display-label">Description:</div>
+			<div class="display-content">{{ recipe.description}}</div>
+		</div>
+	
+		  <div class="area field">
+			  <div class="display-label">Ingredients:</div>
+			  <div class="display-content">        
+				<ul>
+					{% for ingredient in ingredients %}
+						{% if ingredient != ''%}
+							<li>{{ingredient}}</li>
+						{% endif %}
+					{% endfor %}
+				</ul>
+			</div>
+			</div>
+	
+		  <div class="area field">
+			  <div class="display-label">Instructions:</div>
+			  <div class="display-content">        
+				<ol>
+					{% for step in instructions %}
+						{% if step != ''%}
+							<li>{{step}}</li>
+						{% endif %}
+					{% endfor %}
+				</ol>
+			  </div>
+			</div>
+		  
 		
 	</div>
+	
+	<!-- The home page button-->
+	<a href = "{{url_for('home')}}" id = "home">
+		<div class = "button home-button"> HOME </div>
+	</a>
 
 {% endblock %}

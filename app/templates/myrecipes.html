@@ -11,7 +11,7 @@
 		 <!-- WE NEED TO CONNECT THESE TO THE RECIPES-->
 		 <div class = "recipes">
 			{% for r in recipes %}
-			 <a href = "{{url_for('mysinglerecipeedit', recipe_id=r.id)}}">
+			 <a href = "{{url_for('mysinglerecipeview', num=r.id)}}">
 			 	<div class = "button"> {{r.title}} </div>
 			 </a>
 			 {% endfor %}
