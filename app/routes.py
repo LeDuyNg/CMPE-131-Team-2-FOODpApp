@@ -104,7 +104,7 @@ def mysinglerecipeedit(recipe_id):
             flash(f"{recipe_to_edit.get_title()} has been deleted")
             return redirect('/')
 
-    return render_template("test_edit_recipe.html", form = form, recipe_to_edit=recipe_to_edit)
+    return render_template("test_edit_recipe.html", form = form, recipe_to_edit=recipe_to_edit, title = "Edit A Recipe", pageClass = "mysinglerecipeedit")
 
 # --------------------------------------------------------------------- #
 # |                                                                    |#
