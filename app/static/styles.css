@@ -306,7 +306,8 @@ div.button.home-button {
 	}
 }
 
-.mysinglerecipeadd {
+.mysinglerecipeadd,
+.mysinglerecipeedit {
 	.links {
 		.button {
 			width: 130px;
