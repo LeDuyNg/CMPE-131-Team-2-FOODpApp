@@ -8,6 +8,10 @@
 		  <a href="{{ url_for('mysinglerecipeedit', recipe_id = recipe.id) }}">
 		 	<div class = "button">  UPDATE RECIPE </div>
 		  </a>
+		  
+		  <a href="{{ url_for('mysinglerecipedelete', recipe_id = recipe.id) }}">
+  		 	<div class = "button">  DELETE RECIPE </div>
+  		  </a>
 		 
  		  <!--Un comment this line later-->
  		  <!-- <a href="{{ url_for('login') }}" class="button">DELETE RECIPE</a> -->
