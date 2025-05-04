@@ -2,6 +2,9 @@
 {% block content %}
 	<div class = "welcome-text"> WELCOME TO THE PAGE DESCRIBING YOUR RECIPE: </div>
 
+<form action="" method="POST" novalidate>
+{{form.hidden_tag()}}
+
 	<div class = "links"> 
 		 
 		{% if show_buttons %}
@@ -58,7 +61,19 @@
 		  
 		
 	</div>
-	
+
+  	 <div class="form-field">
+            <div class="input-text">{{form.comment.label}}:</div>
+            {{ form.comment(class="form-control", id="comment") }}
+            {% for error in form.comment.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+	 </div>
+
+	 <div class = "button">  {{ form.submit_comment() }} </div>
+
+</form>
+
 	<!-- The home page button-->
 	<a href = "{{url_for('home')}}" id = "home">
 		<div class = "button home-button"> HOME </div>

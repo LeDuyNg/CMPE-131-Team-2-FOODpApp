@@ -1,8 +1,8 @@
 
 from app import myapp_obj
 from flask import render_template, redirect, request, flash
-from app.forms import LoginForm, RegisterForm, RecipeForm
-from app.models import User, Recipe
+from app.forms import LoginForm, RegisterForm, RecipeForm, CommentForm
+from app.models import User, Recipe, Comment
 from app import db
 from flask_login import current_user, login_required, login_user, logout_user
 
@@ -33,20 +33,27 @@ def myprofile():
     return render_template("myprofile.html", title = "My Profile", pageClass = "myprofile")  # Render home.html
 
 # Route when you click on your recipe, renders myrecipes page and displays all recipes
-@myapp_obj.route("/home/myrecipes/mysinglerecipeview/<int:num>")
+@myapp_obj.route("/home/myrecipes/mysinglerecipeview/<int:num>", methods=['GET', 'POST'])
 @login_required  # Ensure the user is logged in before accessing this route
 def mysinglerecipeview(num):
     recipe = Recipe.query.get(num)  # Fetch the recipe by its ID
     if recipe is None:  # If the recipe does not exist
         flash("Recipe not found.", "danger")  # Show a flash message
         return redirect("/home/myrecipes")  # Redirect to the recipes page
+    # Form for comment
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment = Comment(comment = form.comment.data)
+        db.session.add(comment)
+        db.session.commit()
     # Format the ingredients and instructions
     formatted_ingredients = recipe.format_ingredients(recipe.ingredients)
     formatted_instructions = recipe.format_instructions(recipe.instructions)
     show_buttons = (current_user.is_authenticated and recipe.user_id == current_user.id)
 
     return render_template("mysinglerecipeview.html", title = "My Recipe", pageClass = "mysinglerecipeview",
-                           ingredients=formatted_ingredients, instructions=formatted_instructions, recipe = recipe, show_buttons = show_buttons)  # Render home.html
+                           ingredients=formatted_ingredients, instructions=formatted_instructions, recipe = recipe, show_buttons = show_buttons,
+                           form = form)  # Render home.html
 
 # Route when you click "add recipe" on "my recipes" page, renders myrecipes page and displays all recipes
 @myapp_obj.route("/home/myrecipes/mysinglerecipeadd", methods=['GET', 'POST'])

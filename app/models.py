@@ -96,3 +96,10 @@ class Recipe(db.Model):
     #         return json.loads(self.tags)
     #     except (TypeError, json.JSONDecodeError):
     #         return []
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'))
+    comment = db.Column(db.String)
+    # replies = db.Column(db.String) # stores a list of comment id's
