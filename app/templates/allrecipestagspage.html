@@ -2,16 +2,44 @@
 {% block content %}
 	<div class = "welcome-text"> WELCOME TO "ALL RECIPES" PAGE: </div>
 	
-	<div class = "links">
-		<div class = "recipes">
-			{% for r in recipes %}
-			 <a href = "{{url_for('mysinglerecipeview', num = r.id)}}">
-			 	<div class = "button"> {{r.title}} </div>
-			 </a>
-			 {% endfor %}
+	<div class = "container">
+		<div class = "left">
+			<form action="" method="POST">
+				{{form.hidden_tag()}}
+				{{ form.submit_recipe() }}
+				
+				<div class="form-field">
+		            <div class="input-text">{{form.title.label}}:</div>
+		            {{ form.title_for_search(class="form-control", id="title") }}
+		            {% for error in form.title.errors %}
+		                <div class="text-danger">{{ error }}</div>
+		            {% endfor %}
+		        </div>
+				
+				<div class = "tags"> 
+					{{form.temperature}}
+					{{form.dish_type}}
+					{{form.dairy}}
+					{{form.sweetness}}
+					{{form.meat}}
+					{{form.seafood}}
+				</div>
+			</form>
+		</div>
+		
+		<div class = "right">
+			<div class = "links">
+				<div class = "recipes">
+					{% for r in recipes %}
+					 <a href = "{{url_for('mysinglerecipeview', num = r.id)}}">
+					 	<div class = "button"> {{r.title}} </div>
+					 </a>
+					 {% endfor %}
+				 </div>
+			 </div>
 		 </div>
-	 </div>
-
+		 
+	</div>
 	<!-- The home page button-->
 	<a href = "{{url_for('home')}}" id = "home">
 		<div class = "button home-button"> HOME </div>
