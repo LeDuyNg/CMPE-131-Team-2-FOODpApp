@@ -47,18 +47,27 @@ def mysinglerecipeview(num):
                           recipe_id = num,
                           comment = form.comment.data)
         db.session.add(comment)
-        db.session.commit()
-        recipe.set_comment_ids(recipe.comment_ids + " " + str (comment.id))
-        print(recipe.get_comment_ids())     # place holder for displaying comments
+        db.session.commit() 
+        recipe.add_comment_id(comment.id)
 
     # Format the ingredients and instructions
     formatted_ingredients = recipe.format_ingredients(recipe.ingredients)
     formatted_instructions = recipe.format_instructions(recipe.instructions)
     show_buttons = (current_user.is_authenticated and recipe.user_id == current_user.id)
 
+    comment_list = []
+    for comment_id in recipe.get_comment_ids():
+        comment = Comment.query.get(comment_id) # gets the comment object
+        content = comment.comment               # gets the content of the comment
+
+        user = User.query.get(comment.user_id)  # gets the user object
+        username = user.username                # gets the username of the user
+
+        comment_list.append(f"{username} : {content}")  # comment format
+
     return render_template("mysinglerecipeview.html", title = "My Recipe", pageClass = "mysinglerecipeview",
                            ingredients=formatted_ingredients, instructions=formatted_instructions, recipe = recipe, show_buttons = show_buttons,
-                           form = form, Comment = Comment, User = User)  # Render home.html
+                           form = form, comment_list = comment_list)  # Render home.html
 
 # Route when you click "add recipe" on "my recipes" page, renders myrecipes page and displays all recipes
 @myapp_obj.route("/home/myrecipes/mysinglerecipeadd", methods=['GET', 'POST'])

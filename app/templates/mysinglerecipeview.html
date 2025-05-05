@@ -62,8 +62,8 @@
 		
 	</div>
 
-	{% for comment_id in recipe.get_comment_ids() %}
-		<p>{{ User.query.get(Comment.query.get(comment_id).user_id).username }} : {{ Comment.query.get(comment_id).comment }}</p>
+	{% for comment in comment_list %}
+		<p>{{ comment }}</p>
 	{% endfor %}
 
   	 <div class="form-field">

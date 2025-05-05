@@ -80,6 +80,9 @@ class Recipe(db.Model):
         self.comment_ids = new_comment_ids
         db.session.commit()
 
+    def add_comment_id(self, comment_id):
+        self.set_comment_ids(self.comment_ids + " " + str(comment_id))
+
     def get_comment_ids(self):
         return self.comment_ids.split()
 
