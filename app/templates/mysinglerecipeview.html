@@ -2,10 +2,13 @@
 {% block content %}
 	<div class = "welcome-text"> WELCOME TO THE PAGE DESCRIBING YOUR RECIPE: </div>
 
+<form action="" method="POST" novalidate>
+{{form.hidden_tag()}}
+
 	<div class = "container">
 		<div class = "left">
 
-	<div class = "links"> 
+	<div class = "links">
 		 
 		{% if show_buttons %}
 		  <a href="{{ url_for('mysinglerecipeedit', recipe_id = recipe.id) }}">
@@ -30,20 +33,20 @@
 	</div>
 	
 			 <div class = "recipe-content">
-				
+
 				<div class="title field">
 					<div class="display-label">Title:</div>
 					<div class="display-content">{{ recipe.title }}</div>
 				</div>
-				
+
 				<div class="area field">
 					<div class="display-label">Description:</div>
 					<div class="display-content">{{ recipe.description}}</div>
 				</div>
-			
+
 				  <div class="area field">
 					  <div class="display-label">Ingredients:</div>
-					  <div class="display-content">        
+					  <div class="display-content">
 						<ul>
 							{% for ingredient in ingredients %}
 								{% if ingredient != ''%}
@@ -53,10 +56,10 @@
 						</ul>
 					</div>
 				  </div>
-				  
+
 				  <div class="area field">
 					  <div class="display-label">Instructions:</div>
-					  <div class="display-content">        
+					  <div class="display-content">
 						<ol>
 							{% for step in instructions %}
 								{% if step != ''%}
@@ -65,20 +68,40 @@
 							{% endfor %}
 						</ol>
 					  </div>
-					</div> 
-				
+					</div>
+
 			</div>
 		</div>
-		
+
 		<div class = "right">
 			{% for tag in recipe.tags %}
 				{% if recipe.tags[tag] != "" %}
 					 <div class = "tag"> {{ recipe.tags[tag]}} </div>
-					 
+
 				{% endif %}
 			{% endfor %}
 		</div>
-	</div>	
+	</div>
+
+
+	</div>
+
+	{% for comment in comment_list %}
+		<p>{{ comment }}</p>
+	{% endfor %}
+
+  	 <div class="form-field">
+            <div class="input-text">{{form.comment.label}}:</div>
+            {{ form.comment(class="form-control", id="comment") }}
+            {% for error in form.comment.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+	 </div>
+
+	 <div class = "button">  {{ form.submit_comment() }} </div>
+
+</form>
+
 	<!-- The home page button-->
 	<a href = "{{url_for('home')}}" id = "home">
 		<div class = "button home-button"> HOME </div>

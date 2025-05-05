@@ -48,3 +48,7 @@ class RecipeForm(FlaskForm):
     #     widget=ListWidget(prefix_label=False)
     # )
     submit_recipe =  SubmitField("submit recipe")
+
+class CommentForm(FlaskForm):
+    comment = TextAreaField("Comment", validators=[validators.DataRequired()])
+    submit_comment =  SubmitField("submit comment")

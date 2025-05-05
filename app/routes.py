@@ -1,8 +1,8 @@
 
 from app import myapp_obj
 from flask import render_template, redirect, request, flash, url_for
-from app.forms import LoginForm, RegisterForm, RecipeForm, UpdateForm
-from app.models import User, Recipe
+from app.forms import LoginForm, RegisterForm, RecipeForm, UpdateForm, CommentForm
+from app.models import User, Recipe, Comment
 from app import db
 from flask_login import current_user, login_required, login_user, logout_user
 from sqlalchemy import func
@@ -16,74 +16,74 @@ def allrecipestags():
         args = {}
         if form.title_for_search.data != "":
             args["title"] = form.title_for_search.data
-        
+
         if form.temperature.data != "":
             args["temperature"] = form.temperature.data
-            
+
         if form.dish_type.data != "":
             args["dish_type"] = form.dish_type.data
-            
+
         if form.dairy.data != "":
             args["dairy"] = form.dairy.data
-            
+
         if form.sweetness.data != "":
             args["sweetness"] = form.sweetness.data
-            
+
         if form.meat.data != "":
             args["meat"] = form.meat.data
-            
+
         if form.seafood.data != "":
             args["seafood"] = form.seafood.data
-    
+
         url = url_for("allrecipestags", **args)
         return redirect(url)
-    
-    
+
+
     query = Recipe.query
-    
+
     if ("title" in request.args):
         arg = request.args.get("title")
         form.title_for_search.data = arg
         query = query.filter(Recipe.title.icontains(arg))
-        
+
     if ("temperature" in request.args):
         arg = request.args.get("temperature")
         form.temperature.data = arg
         query = query.filter(func.json_extract(Recipe.tags, "$.temperature") == arg)
-        
+
     if ("dish_type" in request.args):
         arg = request.args.get("dish_type")
         form.dish_type.data = arg
         query = query.filter(func.json_extract(Recipe.tags, "$.dish_type") == arg)
-    
+
     if ("dairy" in request.args):
         arg = request.args.get("dairy")
         form.dairy.data = arg
         query = query.filter(func.json_extract(Recipe.tags, "$.dairy") == arg)
-        
+
     if ("sweetness" in request.args):
         arg = request.args.get("sweetness")
         form.sweetness.data = arg
         query = query.filter(func.json_extract(Recipe.tags, "$.sweetness") == arg)
-        
+
     if ("meat" in request.args):
         arg = request.args.get("meat")
         form.meat.data = arg
         query = query.filter(func.json_extract(Recipe.tags, "$.meat") == arg)
-        
+
     if ("seafood" in request.args):
         arg = request.args.get("seafood")
         form.seafood.data = arg
         query = query.filter(func.json_extract(Recipe.tags, "$.seafood") == arg)
-        
-        
+
+
     #tags["temperature"] = form.temperature.data
     #    tags["dish_type"] = form.dish_type.data
     #    tags["dairy"] = form.dairy.data
     #    tags["sweetness"] = form.sweetness.data
     #    tags["meat"] = form.meat.data
     #    tags["seafood"] = form.seafood.data
-        
+
     recipes = query.all()
     return render_template("allrecipestagspage.html", title = "All Recipes Tags", form = form, pageClass = "allrecipestagspage", recipes=recipes)  # Render home.html
 
@@ -107,20 +107,41 @@ def myprofile():
     return render_template("myprofile.html", title = "My Profile", pageClass = "myprofile")  # Render home.html
 
 # Route when you click on your recipe, renders myrecipes page and displays all recipes
-@myapp_obj.route("/home/myrecipes/mysinglerecipeview/<int:num>")
+@myapp_obj.route("/home/myrecipes/mysinglerecipeview/<int:num>", methods=['GET', 'POST'])
 @login_required  # Ensure the user is logged in before accessing this route
 def mysinglerecipeview(num):
     recipe = Recipe.query.get(num)  # Fetch the recipe by its ID
     if recipe is None:  # If the recipe does not exist
         flash("Recipe not found.", "danger")  # Show a flash message
         return redirect("/home/myrecipes")  # Redirect to the recipes page
+    # Form for comment
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment = Comment(user_id = current_user.id,
+                          recipe_id = num,
+                          comment = form.comment.data)
+        db.session.add(comment)
+        db.session.commit()
+        recipe.add_comment_id(comment.id)
+
     # Format the ingredients and instructions
     formatted_ingredients = recipe.format_ingredients(recipe.ingredients)
     formatted_instructions = recipe.format_instructions(recipe.instructions)
     show_buttons = (current_user.is_authenticated and recipe.user_id == current_user.id)
 
+    comment_list = []
+    for comment_id in recipe.get_comment_ids():
+        comment = Comment.query.get(comment_id) # gets the comment object
+        content = comment.comment               # gets the content of the comment
+
+        user = User.query.get(comment.user_id)  # gets the user object
+        username = user.username                # gets the username of the user
+
+        comment_list.append(f"{username} : {content}")  # comment format
+
     return render_template("mysinglerecipeview.html", title = "My Recipe", pageClass = "mysinglerecipeview",
-                           ingredients=formatted_ingredients, instructions=formatted_instructions, recipe = recipe, show_buttons = show_buttons)  # Render home.html
+                           ingredients=formatted_ingredients, instructions=formatted_instructions, recipe = recipe, show_buttons = show_buttons,
+                           form = form, comment_list = comment_list)  # Render home.html
 
 # Route when you click "add recipe" on "my recipes" page, renders myrecipes page and displays all recipes
 @myapp_obj.route("/home/myrecipes/mysinglerecipeadd", methods=['GET', 'POST'])
@@ -139,7 +160,7 @@ def mysinglerecipeadd():
         # Adds a recipe to the database
         db.session.add(recipe)
         db.session.commit()
-        
+
         tags = {}
         tags["temperature"] = form.temperature.data
         tags["dish_type"] = form.dish_type.data
@@ -147,9 +168,9 @@ def mysinglerecipeadd():
         tags["sweetness"] = form.sweetness.data
         tags["meat"] = form.meat.data
         tags["seafood"] = form.seafood.data
-        
+
         recipe.set_tags(tags)
-        
+
         return redirect("/")
     else:
         # User has invalid input
@@ -175,7 +196,7 @@ def mysinglerecipeedit(recipe_id):
         recipe_to_edit.set_description(form.description.data)
         recipe_to_edit.set_ingredients(form.ingredients.data)
         recipe_to_edit.set_instructions(form.instructions.data)
-        
+
         tags = {}
         tags["temperature"] = form.temperature.data
         tags["dish_type"] = form.dish_type.data
@@ -183,32 +204,32 @@ def mysinglerecipeedit(recipe_id):
         tags["sweetness"] = form.sweetness.data
         tags["meat"] = form.meat.data
         tags["seafood"] = form.seafood.data
-    
+
         recipe_to_edit.set_tags(tags)
 
         return redirect("/")
 
     tags = recipe_to_edit.tags
-    
+
     if ("temperature" in tags):
         form.temperature.data = tags["temperature"]
-        
-    if ("dish_type" in tags):  
+
+    if ("dish_type" in tags):
         form.dish_type.data = tags["dish_type"]
-    
-    if ("dairy" in tags):  
+
+    if ("dairy" in tags):
         form.dairy.data = tags["dairy"]
-        
-    if ("sweetness" in tags):   
+
+    if ("sweetness" in tags):
         form.sweetness.data = tags["sweetness"]
-        
-    if ("meat" in tags):   
+
+    if ("meat" in tags):
         form.meat.data = tags["meat"]
-        
-    if ("seafood" in tags): 
+
+    if ("seafood" in tags):
         form.seafood.data = tags["seafood"]
-    
-    
+
+
     return render_template("test_edit_recipe.html", form = form, recipe_to_edit=recipe_to_edit, title = "Edit A Recipe", pageClass = "mysinglerecipeedit", tags = tags)
 
 
@@ -216,12 +237,12 @@ def mysinglerecipeedit(recipe_id):
 @login_required  # Ensure the user is logged in before accessing this route
 def mysinglerecipedelete(recipe_id):
     recipe_to_edit = Recipe.query.get(recipe_id)
- 
+
     # Checks if user is the owner of the recipe
     if recipe_to_edit.user_id != current_user.id:
         flash("You do not have access to this recipe")
         return redirect("/")
- 
+
     db.session.delete(recipe_to_edit)   # Deletes Recipe
     db.session.commit()
     flash(f"{recipe_to_edit.get_title()} has been deleted")
