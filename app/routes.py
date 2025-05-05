@@ -58,7 +58,7 @@ def mysinglerecipeview(num):
 
     return render_template("mysinglerecipeview.html", title = "My Recipe", pageClass = "mysinglerecipeview",
                            ingredients=formatted_ingredients, instructions=formatted_instructions, recipe = recipe, show_buttons = show_buttons,
-                           form = form)  # Render home.html
+                           form = form, Comment = Comment, User = User)  # Render home.html
 
 # Route when you click "add recipe" on "my recipes" page, renders myrecipes page and displays all recipes
 @myapp_obj.route("/home/myrecipes/mysinglerecipeadd", methods=['GET', 'POST'])
