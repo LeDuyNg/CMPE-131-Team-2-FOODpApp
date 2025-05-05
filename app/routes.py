@@ -1,7 +1,7 @@
 
 from app import myapp_obj
-from flask import render_template, redirect, request, flash
-from app.forms import LoginForm, RegisterForm, RecipeForm
+from flask import render_template, redirect, request, flash, url_for
+from app.forms import LoginForm, RegisterForm, RecipeForm, UpdateForm
 from app.models import User, Recipe
 from app import db
 from flask_login import current_user, login_required, login_user, logout_user
@@ -169,3 +169,16 @@ def logout():
 @login_required  # Require the user to be logged in to access this page
 def home():
     return render_template("home.html", title = "Home", pageClass = "home")  # Render home.html
+
+@myapp_obj.route("/home/myprofile/update", methods=['GET', 'POST'])
+@login_required
+def update_profile():
+    user = User.query.get(current_user.id)
+    form = UpdateForm(obj = user)
+    if form.validate_on_submit():
+        user.update_email(email = form.email.data)
+        user.update_username(username = form.username.data)
+        user.set_password(password = form.password.data)
+        db.session.commit()
+        return redirect("/home/myprofile")
+    return render_template("test_edit_profile.html", title = "Update profile", pageClass = "update", user = user, form = form)

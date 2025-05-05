@@ -21,9 +21,17 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    # Function to update email address
+    def update_email(self, email):
+        self.email = email
+
+    def update_username(self, username):
+        self.username = username
+
     # Function to represent the user object as a string
     def __repr__(self):
         return '<Username {}>'.format(self.username)
+    
 
 class Recipe(db.Model):
     # Define columns for the Recipe table
