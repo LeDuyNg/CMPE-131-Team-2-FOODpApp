@@ -1,7 +1,7 @@
 
 from app import myapp_obj
 from flask import render_template, redirect, request, flash, url_for
-from app.forms import LoginForm, RegisterForm, RecipeForm
+from app.forms import LoginForm, RegisterForm, RecipeForm, UpdateForm
 from app.models import User, Recipe
 from app import db
 from flask_login import current_user, login_required, login_user, logout_user
@@ -211,22 +211,21 @@ def mysinglerecipeedit(recipe_id):
     
     return render_template("test_edit_recipe.html", form = form, recipe_to_edit=recipe_to_edit, title = "Edit A Recipe", pageClass = "mysinglerecipeedit", tags = tags)
 
-# Route currently has to be typed in to access the edit page
+
 @myapp_obj.route("/home/myrecipes/mysinglerecipe/<int:recipe_id>/delete", methods=['GET', 'POST'])
 @login_required  # Ensure the user is logged in before accessing this route
 def mysinglerecipedelete(recipe_id):
     recipe_to_edit = Recipe.query.get(recipe_id)
-
+ 
     # Checks if user is the owner of the recipe
     if recipe_to_edit.user_id != current_user.id:
         flash("You do not have access to this recipe")
         return redirect("/")
-
+ 
     db.session.delete(recipe_to_edit)   # Deletes Recipe
     db.session.commit()
     flash(f"{recipe_to_edit.get_title()} has been deleted")
     return redirect('/home/myrecipes')
-
 # --------------------------------------------------------------------- #
 # |                                                                    |#
 # |                         User Related Routes                        |#
@@ -290,4 +289,23 @@ def logout():
 @login_required  # Require the user to be logged in to access this page
 def home():
     return render_template("home.html", title = "Home", pageClass = "home")  # Render home.html
+@myapp_obj.route("/home/myprofile/update", methods=['GET', 'POST'])
+@login_required
+def update_profile():
+    user = User.query.get(current_user.id)
+    form = UpdateForm(obj = user)
+    if form.validate_on_submit():
+        user.update_email(email = form.email.data)
+        user.update_username(username = form.username.data)
+        user.set_password(password = form.password.data)
+        db.session.commit()
+        return redirect("/home/myprofile")
+    return render_template("test_edit_profile.html", title = "Update profile", pageClass = "update", user = user, form = form)
 
+@myapp_obj.route("/home/myrecipes/mysinglerecipe/<int:recipe_id>/favorite", methods=['GET', 'POST'])
+@login_required  # Ensure the user is logged in before accessing this route
+def add_favorite(recipe_id):
+    user = User.query.get(current_user.id)
+    favorite_recipe = Recipe.query.get(recipe_id)
+    user.add_favorite(favorite_recipe)
+    return redirect(url_for('mysinglerecipeview', num = recipe_id))
