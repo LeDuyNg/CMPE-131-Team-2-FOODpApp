@@ -13,9 +13,17 @@
   		 	<div class = "button">  DELETE RECIPE </div>
   		  </a>
 		 
- 		  <!--Un comment this line later-->
- 		  <!-- <a href="{{ url_for('login') }}" class="button">DELETE RECIPE</a> -->
- 		 {% endif %}		 
+		  <a href="{{ url_for('mysinglerecipedelete', recipe_id = recipe.id) }}">
+			<div class = "button">  DELETE RECIPE </div>
+		 </a>
+ 		 {% endif %}
+
+		{% if not show_buttons %}
+		  <a href="{{ url_for('add_favorite', recipe_id = recipe.id) }}">
+		 	<div class = "button">  ADD FAVORITE </div>
+		  </a>
+
+ 		 {% endif %}
 	</div>
 	
 	 <div class = "recipe-content">
