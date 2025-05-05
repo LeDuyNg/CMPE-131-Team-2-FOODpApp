@@ -3,6 +3,12 @@ from datetime import datetime  # Import datetime to handle timestamps
 from werkzeug.security import generate_password_hash, check_password_hash  # Import for password hashing
 from flask_login import UserMixin  # Import UserMixin to integrate Flask-Login
 
+favorite_recipes = db.Table(
+    'favorite_recipes',
+    db.Column('user_id',    db.Integer, db.ForeignKey('user.id'),    primary_key=True),
+    db.Column('recipe_id',  db.Integer, db.ForeignKey('recipe.id'),  primary_key=True),
+)
+
 # Define the User model, inheriting from UserMixin for Flask-Login functionality
 class User(UserMixin, db.Model):
     # Define columns for the User table
@@ -12,6 +18,13 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(32))  # Column for user email
     # Uncomment this line if you want to add a relationship to recipes created by the user
     #recipes = db.relationship('Recipe', backref='author', lazy='dynamic')  # Relationship to recipes created by the user
+    favorite_recipes  = db.relationship(
+        'Recipe',
+        secondary = favorite_recipes,
+        backref=db.backref('favorited_by', lazy='dynamic'),
+        lazy='dynamic'
+    )
+
 
     # Function to generate a hash for the password before storing it
     def set_password(self, password):
@@ -25,8 +38,19 @@ class User(UserMixin, db.Model):
     def update_email(self, email):
         self.email = email
 
+    # Function to update username
     def update_username(self, username):
         self.username = username
+
+    def add_favorite(self, recipe):
+        if not self.favorite_recipes.filter_by(id=recipe.id).first():
+            self.favorite_recipes.append(recipe)
+            db.session.commit()
+
+    def remove_favorite(self, recipe):
+        if self.favorite_recipes.filter_by(id=recipe.id).first():
+            self.favorite_recipes.remove(recipe)
+            db.session.commit()
 
     # Function to represent the user object as a string
     def __repr__(self):

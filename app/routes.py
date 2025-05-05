@@ -182,3 +182,19 @@ def update_profile():
         db.session.commit()
         return redirect("/home/myprofile")
     return render_template("test_edit_profile.html", title = "Update profile", pageClass = "update", user = user, form = form)
+
+@myapp_obj.route("/home/myrecipes/mysinglerecipe/<int:recipe_id>/favorite", methods=['GET', 'POST'])
+@login_required  # Ensure the user is logged in before accessing this route
+def add_favorite(recipe_id):
+    user = User.query.get(current_user.id)
+    favorite_recipe = Recipe.query.get(recipe_id)
+    user.add_favorite(favorite_recipe)
+    return redirect(url_for('mysinglerecipeview', num = recipe_id))
+
+
+@myapp_obj.route("/home/myprofile/favorites")
+@login_required
+def my_favorites():
+    recipes = current_user.favorite_recipes.all()
+    
+    return render_template('favorites.html', recipes=recipes, title = "My Favorite Recipes", pageClass = "myrecipes")
