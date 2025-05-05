@@ -43,9 +43,14 @@ def mysinglerecipeview(num):
     # Form for comment
     form = CommentForm()
     if form.validate_on_submit():
-        comment = Comment(comment = form.comment.data)
+        comment = Comment(user_id = current_user.id,
+                          recipe_id = num,
+                          comment = form.comment.data)
         db.session.add(comment)
         db.session.commit()
+        recipe.set_comment_ids(recipe.comment_ids + " " + str (comment.id))
+        print(recipe.get_comment_ids())     # place holder for displaying comments
+
     # Format the ingredients and instructions
     formatted_ingredients = recipe.format_ingredients(recipe.ingredients)
     formatted_instructions = recipe.format_instructions(recipe.instructions)
