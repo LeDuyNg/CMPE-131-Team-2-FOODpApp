@@ -96,15 +96,22 @@ def mysinglerecipeedit(recipe_id):
         # User has invalid input
         print("BAD INPUT")
 
-    # Check if delete button is pressed
-    if request.method == 'POST':
-        if request.form['submit_button'] == 'DELETE RECIPE!':
-            db.session.delete(recipe_to_edit)   # Deletes Recipe
-            db.session.commit()
-            flash(f"{recipe_to_edit.get_title()} has been deleted")
-            return redirect('/')
-
     return render_template("test_edit_recipe.html", form = form, recipe_to_edit=recipe_to_edit, title = "Edit A Recipe", pageClass = "mysinglerecipeedit")
+
+@myapp_obj.route("/home/myrecipes/mysinglerecipe/<int:recipe_id>/delete", methods=['GET', 'POST'])
+@login_required  # Ensure the user is logged in before accessing this route
+def mysinglerecipedelete(recipe_id):
+    recipe_to_edit = Recipe.query.get(recipe_id)
+ 
+    # Checks if user is the owner of the recipe
+    if recipe_to_edit.user_id != current_user.id:
+        flash("You do not have access to this recipe")
+        return redirect("/")
+ 
+    db.session.delete(recipe_to_edit)   # Deletes Recipe
+    db.session.commit()
+    flash(f"{recipe_to_edit.get_title()} has been deleted")
+    return redirect('/home/myrecipes')
 
 # --------------------------------------------------------------------- #
 # |                                                                    |#
