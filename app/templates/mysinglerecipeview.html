@@ -62,6 +62,10 @@
 		
 	</div>
 
+	{% for comment in recipe.get_comment_ids() %}
+		<p>{{comment}}</p>
+	{% endfor %}
+
   	 <div class="form-field">
             <div class="input-text">{{form.comment.label}}:</div>
             {{ form.comment(class="form-control", id="comment") }}
