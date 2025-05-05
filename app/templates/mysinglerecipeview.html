@@ -1,64 +1,74 @@
 {% extends "base.html" %}
 {% block content %}
 	<div class = "welcome-text"> WELCOME TO THE PAGE DESCRIBING YOUR RECIPE: </div>
-
-	<div class = "links"> 
-		 
-		{% if show_buttons %}
-		  <a href="{{ url_for('mysinglerecipeedit', recipe_id = recipe.id) }}">
-		 	<div class = "button">  UPDATE RECIPE </div>
-		  </a>
-		  
-		  <a href="{{ url_for('mysinglerecipedelete', recipe_id = recipe.id) }}">
-  		 	<div class = "button">  DELETE RECIPE </div>
-  		  </a>
-		 
- 		  <!--Un comment this line later-->
- 		  <!-- <a href="{{ url_for('login') }}" class="button">DELETE RECIPE</a> -->
- 		 {% endif %}		 
-	</div>
-	
-	 <div class = "recipe-content">
-		
-		<div class="title field">
-			<div class="display-label">Title:</div>
-			<div class="display-content">{{ recipe.title }}</div>
+	<div class = "container">
+		<div class = "left">
+			<div class = "links"> 
+				 
+				{% if show_buttons %}
+				  <a href="{{ url_for('mysinglerecipeedit', recipe_id = recipe.id) }}">
+				 	<div class = "button">  UPDATE RECIPE </div>
+				  </a>
+				  
+				  <a href="{{ url_for('mysinglerecipedelete', recipe_id = recipe.id) }}">
+		  		 	<div class = "button">  DELETE RECIPE </div>
+		  		  </a>
+				 
+		 		  <!--Un comment this line later-->
+		 		  <!-- <a href="{{ url_for('login') }}" class="button">DELETE RECIPE</a> -->
+		 		 {% endif %}		 
+			</div>
+			
+			 <div class = "recipe-content">
+				
+				<div class="title field">
+					<div class="display-label">Title:</div>
+					<div class="display-content">{{ recipe.title }}</div>
+				</div>
+				
+				<div class="area field">
+					<div class="display-label">Description:</div>
+					<div class="display-content">{{ recipe.description}}</div>
+				</div>
+			
+				  <div class="area field">
+					  <div class="display-label">Ingredients:</div>
+					  <div class="display-content">        
+						<ul>
+							{% for ingredient in ingredients %}
+								{% if ingredient != ''%}
+									<li>{{ingredient}}</li>
+								{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+				  </div>
+				  
+				  <div class="area field">
+					  <div class="display-label">Instructions:</div>
+					  <div class="display-content">        
+						<ol>
+							{% for step in instructions %}
+								{% if step != ''%}
+									<li>{{step}}</li>
+								{% endif %}
+							{% endfor %}
+						</ol>
+					  </div>
+					</div> 
+				
+			</div>
 		</div>
 		
-		<div class="area field">
-			<div class="display-label">Description:</div>
-			<div class="display-content">{{ recipe.description}}</div>
+		<div class = "right">
+			{% for tag in recipe.tags %}
+				{% if recipe.tags[tag] != "" %}
+					 <div class = "tag"> {{ recipe.tags[tag]}} </div>
+					 
+				{% endif %}
+			{% endfor %}
 		</div>
-	
-		  <div class="area field">
-			  <div class="display-label">Ingredients:</div>
-			  <div class="display-content">        
-				<ul>
-					{% for ingredient in ingredients %}
-						{% if ingredient != ''%}
-							<li>{{ingredient}}</li>
-						{% endif %}
-					{% endfor %}
-				</ul>
-			</div>
-			</div>
-	
-		  <div class="area field">
-			  <div class="display-label">Instructions:</div>
-			  <div class="display-content">        
-				<ol>
-					{% for step in instructions %}
-						{% if step != ''%}
-							<li>{{step}}</li>
-						{% endif %}
-					{% endfor %}
-				</ol>
-			  </div>
-			</div>
-		  
-		
-	</div>
-	
+	</div>	
 	<!-- The home page button-->
 	<a href = "{{url_for('home')}}" id = "home">
 		<div class = "button home-button"> HOME </div>

@@ -1,17 +1,91 @@
 
 from app import myapp_obj
-from flask import render_template, redirect, request, flash
+from flask import render_template, redirect, request, flash, url_for
 from app.forms import LoginForm, RegisterForm, RecipeForm
 from app.models import User, Recipe
 from app import db
 from flask_login import current_user, login_required, login_user, logout_user
+from sqlalchemy import func
 
 # All recipes tags route, renders home page and displays the page where you can select tags to see recipes.
-@myapp_obj.route("/home/allrecipestagspage")
+@myapp_obj.route("/home/allrecipestagspage", methods=['GET', 'POST'])
 @login_required  # Ensure the user is logged in before accessing this route
 def allrecipestags():
-    recipes = Recipe.query.all();
-    return render_template("allrecipestagspage.html", title = "All Recipes Tags", pageClass = "allrecipestagspage", recipes=recipes)  # Render home.html
+    form = RecipeForm()
+    if request.method == 'POST':
+        args = {}
+        if form.title_for_search.data != "":
+            args["title"] = form.title_for_search.data
+        
+        if form.temperature.data != "":
+            args["temperature"] = form.temperature.data
+            
+        if form.dish_type.data != "":
+            args["dish_type"] = form.dish_type.data
+            
+        if form.dairy.data != "":
+            args["dairy"] = form.dairy.data
+            
+        if form.sweetness.data != "":
+            args["sweetness"] = form.sweetness.data
+            
+        if form.meat.data != "":
+            args["meat"] = form.meat.data
+            
+        if form.seafood.data != "":
+            args["seafood"] = form.seafood.data
+    
+        url = url_for("allrecipestags", **args)
+        return redirect(url)
+    
+    
+    query = Recipe.query
+    
+    if ("title" in request.args):
+        arg = request.args.get("title")
+        form.title_for_search.data = arg
+        query = query.filter(Recipe.title.icontains(arg))
+        
+    if ("temperature" in request.args):
+        arg = request.args.get("temperature")
+        form.temperature.data = arg
+        query = query.filter(func.json_extract(Recipe.tags, "$.temperature") == arg)
+        
+    if ("dish_type" in request.args):
+        arg = request.args.get("dish_type")
+        form.dish_type.data = arg
+        query = query.filter(func.json_extract(Recipe.tags, "$.dish_type") == arg)
+    
+    if ("dairy" in request.args):
+        arg = request.args.get("dairy")
+        form.dairy.data = arg
+        query = query.filter(func.json_extract(Recipe.tags, "$.dairy") == arg)
+        
+    if ("sweetness" in request.args):
+        arg = request.args.get("sweetness")
+        form.sweetness.data = arg
+        query = query.filter(func.json_extract(Recipe.tags, "$.sweetness") == arg)
+        
+    if ("meat" in request.args):
+        arg = request.args.get("meat")
+        form.meat.data = arg
+        query = query.filter(func.json_extract(Recipe.tags, "$.meat") == arg)
+        
+    if ("seafood" in request.args):
+        arg = request.args.get("seafood")
+        form.seafood.data = arg
+        query = query.filter(func.json_extract(Recipe.tags, "$.seafood") == arg)
+        
+        
+    #tags["temperature"] = form.temperature.data
+    #    tags["dish_type"] = form.dish_type.data
+    #    tags["dairy"] = form.dairy.data
+    #    tags["sweetness"] = form.sweetness.data
+    #    tags["meat"] = form.meat.data
+    #    tags["seafood"] = form.seafood.data
+        
+    recipes = query.all()
+    return render_template("allrecipestagspage.html", title = "All Recipes Tags", form = form, pageClass = "allrecipestagspage", recipes=recipes)  # Render home.html
 
 # My recipes route, renders myrecipes page and displays all recipes
 @myapp_obj.route("/home/myrecipes")
@@ -65,6 +139,17 @@ def mysinglerecipeadd():
         # Adds a recipe to the database
         db.session.add(recipe)
         db.session.commit()
+        
+        tags = {}
+        tags["temperature"] = form.temperature.data
+        tags["dish_type"] = form.dish_type.data
+        tags["dairy"] = form.dairy.data
+        tags["sweetness"] = form.sweetness.data
+        tags["meat"] = form.meat.data
+        tags["seafood"] = form.seafood.data
+        
+        recipe.set_tags(tags)
+        
         return redirect("/")
     else:
         # User has invalid input
@@ -90,14 +175,41 @@ def mysinglerecipeedit(recipe_id):
         recipe_to_edit.set_description(form.description.data)
         recipe_to_edit.set_ingredients(form.ingredients.data)
         recipe_to_edit.set_instructions(form.instructions.data)
+        
+        tags = {}
+        tags["temperature"] = form.temperature.data
+        tags["dish_type"] = form.dish_type.data
+        tags["dairy"] = form.dairy.data
+        tags["sweetness"] = form.sweetness.data
+        tags["meat"] = form.meat.data
+        tags["seafood"] = form.seafood.data
+    
+        recipe_to_edit.set_tags(tags)
 
         return redirect("/")
-    else:
-        # User has invalid input
-        print("BAD INPUT")
 
-
-    return render_template("test_edit_recipe.html", form = form, recipe_to_edit=recipe_to_edit, title = "Edit A Recipe", pageClass = "mysinglerecipeedit")
+    tags = recipe_to_edit.tags
+    
+    if ("temperature" in tags):
+        form.temperature.data = tags["temperature"]
+        
+    if ("dish_type" in tags):  
+        form.dish_type.data = tags["dish_type"]
+    
+    if ("dairy" in tags):  
+        form.dairy.data = tags["dairy"]
+        
+    if ("sweetness" in tags):   
+        form.sweetness.data = tags["sweetness"]
+        
+    if ("meat" in tags):   
+        form.meat.data = tags["meat"]
+        
+    if ("seafood" in tags): 
+        form.seafood.data = tags["seafood"]
+    
+    
+    return render_template("test_edit_recipe.html", form = form, recipe_to_edit=recipe_to_edit, title = "Edit A Recipe", pageClass = "mysinglerecipeedit", tags = tags)
 
 # Route currently has to be typed in to access the edit page
 @myapp_obj.route("/home/myrecipes/mysinglerecipe/<int:recipe_id>/delete", methods=['GET', 'POST'])

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, validators, EmailField, TextAreaField
+from wtforms import StringField, PasswordField, RadioField, SubmitField, validators, EmailField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email
 
 # Login form for user authentication
@@ -17,9 +17,17 @@ class RegisterForm(FlaskForm):
 
 class RecipeForm(FlaskForm):
     title = StringField("Title", validators=[validators.Length(min=1, max=80)])
+    title_for_search = StringField("Title", validators=[validators.Length(max=80)])
     description = TextAreaField("Description", validators=[validators.DataRequired()])
     ingredients = TextAreaField("Ingredients", validators=[validators.DataRequired()])
     instructions = TextAreaField("Instructions", validators=[validators.DataRequired()])
+    temperature = RadioField("Temperature", choices = [("hot", "Hot"), ("cold", "Cold"), ("", "Other")], default = "")
+    dish_type = RadioField("Dish Type", choices = [("soups", "Soups"), ("salads", "Salads"), ("dessert", "Desserts"), ("main", "Main"), ("", "Other")], default = "")
+    dairy = RadioField("Dairy", choices = [("dairy", "Dairy"), ("non-dairy", "Non-dairy"), ("", "Other")], default = "")
+    sweetness = RadioField("Sweetness", choices = [("sweet", "Sweet"), ("savory", "Savory"), ("", "Other")], default = "")
+    meat = RadioField("Meat", choices = [("meat", "Meat"), ("non-meat", "Non-meat"), ("", "Other")], default = "")
+    seafood = RadioField("Seafood", choices = [("seafood", "Seafood"), ("non-seafood", "Non-seafood"), ("", "Other")], default = "")
+    
     # tags = SelectMultipleField(
     #     'Tags',
     #     choices=[

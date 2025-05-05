@@ -2,6 +2,9 @@ from app import db  # Import the database instance from the app module
 from datetime import datetime  # Import datetime to handle timestamps
 from werkzeug.security import generate_password_hash, check_password_hash  # Import for password hashing
 from flask_login import UserMixin  # Import UserMixin to integrate Flask-Login
+from sqlalchemy.orm.attributes import flag_modified
+from flask.json import jsonify
+import json
 
 # Define the User model, inheriting from UserMixin for Flask-Login functionality
 class User(UserMixin, db.Model):
@@ -38,8 +41,23 @@ class Recipe(db.Model):
     created = db.Column(db.DateTime, default=datetime.now())
     num_of_rating = db.Column(db.Integer, default=0)
     total_rating = db.Column(db.Integer, default=0)
-    tags = db.Column(db.JSON, default=[])
+    tags = db.Column(db.JSON, default={})
 
+    def fix_tags(self):
+        if self.tags == []:
+            self.tags = {}
+        flag_modified(self, "tags")
+        db.session.commit()
+        
+        
+    def set_tags(self, new_tags):
+        if self.tags == []:
+            self.tags = {}
+        for tag in new_tags:
+            self.tags[tag] = new_tags[tag]
+        flag_modified(self, "tags")
+        db.session.commit()
+    
     def rate_recipe(self, rating):
         self.total_rating += rating
         self.num_of_rating += 1

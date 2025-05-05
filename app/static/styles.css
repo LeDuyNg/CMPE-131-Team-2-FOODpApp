@@ -27,6 +27,7 @@ body {
 .recipe-content {
 	position:  relative;
 	left: 160px;
+	margin-right: 160px;
 
 	input {
 		display: block;
@@ -261,6 +262,15 @@ div.button.home-button {
 
 .myrecipes,
 .allrecipestagspage {
+	.container{
+		display: flex;
+		flex-direction: row;
+		
+		.links {
+			margin-top: 30px;
+		}
+	}
+			
 	.links {
 		margin-left: 20px;
 		
@@ -327,6 +337,7 @@ div.button.home-button {
 			}
 		}
 	}
+	
 	.recipe-content {
 		
 		input {
@@ -345,6 +356,19 @@ div.button.home-button {
 			box-shadow: 5px 5px 2px #e0baa5;
 		}
 	}
+	.container{
+		display: flex;
+		flex-direction: row;
+		
+		.right {
+			margin-top: 140px;
+			
+			li {
+				list-style-type: none;
+			}
+		}
+	}
+	
 }
 
 .mysinglerecipeview {
@@ -354,7 +378,18 @@ div.button.home-button {
 			margin-bottom: 10px;
 		}
 	}
+	
+	.container{
+			display: flex;
+			flex-direction: row;
+			
+			.right {
+				margin-top: 90px;
+				margin-left: 30px;
 
+			}
+		}
+		
 	.field {
 		font-family: inherit;
 		font-size: inherit;
@@ -380,11 +415,5 @@ div.button.home-button {
 	
 	.display-label {
 		padding-right: 10px;
-	}
-}
-
-.allrecipestagspage {
-	.links {
-		margin-top: 50px;
 	}
 }
