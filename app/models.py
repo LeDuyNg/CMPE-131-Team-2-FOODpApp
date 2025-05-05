@@ -1,3 +1,5 @@
+from email.policy import default
+
 from app import db  # Import the database instance from the app module
 from datetime import datetime  # Import datetime to handle timestamps
 from werkzeug.security import generate_password_hash, check_password_hash  # Import for password hashing
@@ -32,6 +34,7 @@ class Recipe(db.Model):
     description = db.Column(db.Text, nullable=False)  # Column for recipe description (non-nullable)
     ingredients = db.Column(db.Text, nullable=False)
     instructions = db.Column(db.Text, nullable=False)
+    comment_ids = db.Column(db.String, default="")
 
     created = db.Column(db.DateTime, default=datetime.now())  # Timestamp for when the recipe is created
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # Foreign key to associate with a User
@@ -72,7 +75,14 @@ class Recipe(db.Model):
 
     def get_ingredients(self):
         return self.ingredients
-    
+
+    def set_comment_ids(self, new_comment_ids):
+        self.comment_ids = new_comment_ids
+        db.session.commit()
+
+    def get_comment_ids(self):
+        return self.comment_ids.split()
+
     # Function to format the ingredients as a list from a comma-separated string
     def format_ingredients(self, unformatted_list):
         """Converts a comma-separated string into a list, stripping any extra spaces"""
