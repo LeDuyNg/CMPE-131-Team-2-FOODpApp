@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class = "welcome-text"> WELCOME TO THE PAGE WHERE YOU CAN CREATE A RECIPE: </div>
+
+<form action="" method="POST" novalidate>
+{{form.hidden_tag()}}
+	<div class = "container">
+		<div class = "left">
+			<div class = "links"> 
+				 
+				 <a href = "{{url_for('mysinglerecipeadd')}}" id = "cancel">
+				 	<div class = "button">  CANCEL/ ERASE </div>
+				 </a>
+		
+				 <a href = "{{url_for('login')}}" id = "log-in">
+				 	<div class = "button">  {{ form.submit_recipe() }} </div>
+				 </a>
+				 
+			</div>
+		
+			<div class = "recipe-content">
+		
+				<div class="form-field">
+		            <div class="input-text">{{form.title.label}}:</div>
+		            {{ form.title(class="form-control", id="title") }}
+		            {% for error in form.title.errors %}
+		                <div class="text-danger">{{ error }}</div>
+		            {% endfor %}
+		        </div>
+				
+				<div class="form-field">
+			        <div class="input-text">{{form.description.label}}:</div>
+			        {{ form.description(class="form-control", id="description") }}
+			        {% for error in form.description.errors %}
+			            <div class="text-danger">{{ error }}</div>
+			        {% endfor %}
+			    </div>
+				
+				<div class="form-field">
+		            <div class="input-text">{{form.ingredients.label}}:</div>
+		            {{ form.ingredients(class="form-control", id="ingredients") }}
+		            {% for error in form.ingredients.errors %}
+		                <div class="text-danger">{{ error }}</div>
+		            {% endfor %}
+		        </div>
+				
+				<div class="form-field">
+		            <div class="input-text">{{form.instructions.label}}:</div>
+		            {{ form.instructions(class="form-control", id="instructions") }}
+		            {% for error in form.instructions.errors %}
+		                <div class="text-danger">{{ error }}</div>
+		            {% endfor %}
+		        </div>
+				
+			</div>
+		</div>
+		
+		<div class = "right">
+			<div class = "tags"> 
+				{{form.temperature}}
+				{{form.dish_type}}
+				{{form.dairy}}
+				{{form.sweetness}}
+				{{form.meat}}
+				{{form.seafood}}
+			</div>
+		</div">
+	</div>
+</form>
+
+<!-- The home page button-->
+<a href = "{{url_for('home')}}" id = "home">
+	<div class = "button home-button"> HOME </div>
+</a>
+
+{% endblock %}
