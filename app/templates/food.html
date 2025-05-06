@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ meal.strMeal }} Recipe</title>
+</head>
+<body>
+    <h1>{{ meal.strMeal }}</h1>
+    <img src="{{ meal.strMealThumb }}" alt="{{ meal.strMeal }}" width="300">
+    <h2>Category: {{ meal.strCategory }} | Area: {{ meal.strArea }}</h2>
+    <h3>Instructions</h3>
+    <ol>
+        {% for line in meal.strInstructions.split('.') %}
+
+                {% if line.strip() %}
+                <li>{{ line }}</li>
+
+
+            {% endif %}
+        {% endfor %}
+    </ol>
+    <h3>Ingredients</h3>
+    <ul>
+        {% for i in range(1, 21) %}
+            {% set ingredient = meal['strIngredient' ~ i] %}
+            {% set measure = meal['strMeasure' ~ i] %}
+            {% if ingredient %}
+                <li>{{ ingredient }} — {{ measure }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    {% if meal.strSource %}
+        <p>Source: <a href="{{ meal.strSource }}">{{ meal.strSource }}</a></p>
+    {% endif %}
+    {% if meal.strYoutube %}
+        <p>Video: <a href="{{ meal.strYoutube }}">Watch on YouTube</a></p>
+    {% endif %}
+    <a href = "{{url_for('home')}}">RETURN</a>
+    <a href = "{{url_for('add_API_recipe', meal_id = meal.idMeal)}}">ADD TO MY RECIPE</a>
+</body>
+</html>

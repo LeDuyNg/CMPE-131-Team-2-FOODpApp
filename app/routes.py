@@ -8,6 +8,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 from sqlalchemy import func
 import random
 from datetime import date
+import requests
 
 # All recipes tags route, renders home page and displays the page where you can select tags to see recipes.
 @myapp_obj.route("/home/allrecipestagspage", methods=['GET', 'POST'])
@@ -319,6 +320,75 @@ def home():
     random_recipe = random.choice(recipes)
     return render_template("home.html", title = "Home", pageClass = "home", recipe = random_recipe)  # Render home.html
 
+@myapp_obj.route("/home/random_recipe")
+@login_required
+def get_random_recipe():
+    food_url = "https://www.themealdb.com/api/json/v1/1/random.php"
+    food_response = requests.get(food_url)
+    food_data = food_response.json()
+    meal = food_data['meals'][0]
+    return render_template('food.html', meal=meal)
+
+@myapp_obj.route("/home/myrecipes/mysinglerecipeadd/<string:meal_id>", methods=['GET', 'POST'])
+@login_required
+def add_API_recipe(meal_id):
+    # Call the API to retrieve the recipe using its id
+    food_url = f"https://www.themealdb.com/api/json/v1/1/lookup.php?i={meal_id}"
+    food_response = requests.get(food_url)
+    food_data = food_response.json()
+    meal = food_data['meals'][0]
+
+    # Data handling
+    ingredient_entries = []
+
+    for index in range(1, 21):
+        # Oull the ingredient name and its measure
+        ingredient_name    = meal.get(f"strIngredient{index}")
+        ingredient_amount  = meal.get(f"strMeasure{index}")
+
+        # Only include entries where the ingredient name is present and not whitespace
+        if ingredient_name and ingredient_name.strip():
+            # Combine amount and name into one line, omit the amount if it is missing
+            line = f"{ingredient_amount or ''} {ingredient_name}".strip()
+            ingredient_entries.append(line)
+
+    
+    initial = {
+        'title'       : meal['strMeal'],
+        'description' : meal['strCategory'] + " – " + meal['strArea'],  # or however you like
+        'ingredients' : "\n".join(ingredient_entries),
+        'instructions': meal['strInstructions'],
+    }
+
+    form = RecipeForm(data=initial)
+    if form.validate_on_submit(): # Checks if user input is valid
+        # Creates a recipe
+        recipe = Recipe(title=form.title.data,
+                        user_id=current_user.id,
+                        description=form.description.data,
+                        ingredients=form.ingredients.data,
+                        instructions=form.instructions.data,
+                        )
+
+        # Adds a recipe to the database
+        db.session.add(recipe)
+        db.session.commit()
+
+        tags = {}
+        tags["temperature"] = form.temperature.data
+        tags["dish_type"] = form.dish_type.data
+        tags["dairy"] = form.dairy.data
+        tags["sweetness"] = form.sweetness.data
+        tags["meat"] = form.meat.data
+        tags["seafood"] = form.seafood.data
+
+        recipe.set_tags(tags)
+
+        return redirect("/")
+    else:
+        # User has invalid input
+        print("BAD INPUT")
+    return render_template("add_API_recipe.html", form=form, title = "Add A Recipe", pageClass = "mysinglerecipeadd")
 
 @myapp_obj.route("/home/myprofile/update", methods=['GET', 'POST'])
 @login_required
