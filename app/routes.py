@@ -6,6 +6,8 @@ from app.models import User, Recipe, Comment
 from app import db
 from flask_login import current_user, login_required, login_user, logout_user
 from sqlalchemy import func
+import random
+from datetime import date
 
 # All recipes tags route, renders home page and displays the page where you can select tags to see recipes.
 @myapp_obj.route("/home/allrecipestagspage", methods=['GET', 'POST'])
@@ -309,7 +311,15 @@ def logout():
 @myapp_obj.route("/home")
 @login_required  # Require the user to be logged in to access this page
 def home():
-    return render_template("home.html", title = "Home", pageClass = "home")  # Render home.html
+    recipes = Recipe.query.all()
+    # derive an integer seed from today’s date
+    today = date.today()
+    seed = today.toordinal()
+    random.seed(seed)
+    random_recipe = random.choice(recipes)
+    return render_template("home.html", title = "Home", pageClass = "home", recipe = random_recipe)  # Render home.html
+
+
 @myapp_obj.route("/home/myprofile/update", methods=['GET', 'POST'])
 @login_required
 def update_profile():
