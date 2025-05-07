@@ -317,7 +317,11 @@ def home():
     today = date.today()
     seed = today.toordinal()
     random.seed(seed)
-    random_recipe = random.choice(recipes)
+    if recipes:
+        random_recipe = random.choice(recipes)
+    else:
+        random_recipe = Recipe(title = "", description = "", ingredients = "", instructions = "", id = -1)
+
     return render_template("home.html", title = "Home", pageClass = "home", recipe = random_recipe)  # Render home.html
 
 @myapp_obj.route("/home/random_recipe")
