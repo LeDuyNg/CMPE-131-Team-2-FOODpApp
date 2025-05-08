@@ -1,7 +1,7 @@
 
 from app import myapp_obj
 from flask import render_template, redirect, request, flash, url_for
-from app.forms import LoginForm, RegisterForm, RecipeForm, UpdateForm, CommentForm
+from app.forms import LoginForm, RegisterForm, RecipeForm, UpdateForm, CommentForm, RatingForm
 from app.models import User, Recipe, Comment
 from app import db
 from flask_login import current_user, login_required, login_user, logout_user
@@ -117,34 +117,33 @@ def mysinglerecipeview(num):
     if recipe is None:  # If the recipe does not exist
         flash("Recipe not found.", "danger")  # Show a flash message
         return redirect("/home/myrecipes")  # Redirect to the recipes page
-    # Form for comment
-    form = CommentForm()
-    if form.validate_on_submit():
+
+    comment_form = CommentForm()
+    rating_form = RatingForm()
+
+    if comment_form.validate_on_submit():
         comment = Comment(user_id = current_user.id,
                           recipe_id = num,
-                          comment = form.comment.data)
+                          comment = comment_form.comment.data)
         db.session.add(comment)
         db.session.commit()
         recipe.add_comment_id(comment.id)
+
+    if rating_form.validate_on_submit():
+        recipe.rate_recipe(current_user.id, rating_form.rating.data)
 
     # Format the ingredients and instructions
     formatted_ingredients = recipe.format_ingredients(recipe.ingredients)
     formatted_instructions = recipe.format_instructions(recipe.instructions)
     show_buttons = (current_user.is_authenticated and recipe.user_id == current_user.id)
 
-    comment_list = []
-    for comment_id in recipe.get_comment_ids():
-        comment = Comment.query.get(comment_id) # gets the comment object
-        content = comment.comment               # gets the content of the comment
+    comment_list = recipe.get_comment_list()
 
-        user = User.query.get(comment.user_id)  # gets the user object
-        username = user.username                # gets the username of the user
-
-        comment_list.append(f"{username} : {content}")  # comment format
+    print(recipe.average_rating())
 
     return render_template("mysinglerecipeview.html", title = "My Recipe", pageClass = "mysinglerecipeview",
                            ingredients=formatted_ingredients, instructions=formatted_instructions, recipe = recipe, show_buttons = show_buttons,
-                           form = form, comment_list = comment_list)  # Render home.html
+                           comment_form = comment_form, comment_list = comment_list, rating_form = rating_form)  # Render home.html
 
 # Route when you click "add recipe" on "my recipes" page, renders myrecipes page and displays all recipes
 @myapp_obj.route("/home/myrecipes/mysinglerecipeadd", methods=['GET', 'POST'])

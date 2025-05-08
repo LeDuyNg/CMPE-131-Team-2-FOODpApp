@@ -2,9 +2,6 @@
 {% block content %}
 	<div class = "welcome-text"> WELCOME TO THE PAGE DESCRIBING YOUR RECIPE: </div>
 
-<form action="" method="POST" novalidate>
-{{form.hidden_tag()}}
-
 	<div class = "container">
 		<div class = "left">
 
@@ -90,15 +87,26 @@
 		<p>{{ comment }}</p>
 	{% endfor %}
 
+<p>Average Rating: {{ recipe.average_rating() }}</p>
+
+<form action="" method="POST" novalidate>
+	{{rating_form.hidden_tag()}}
+	{{ rating_form.rating.label }} {{ rating_form.rating()}}
+	<div class = "button"> {{ rating_form.submit_rating() }} </div>
+</form>
+
+<form action="" method="POST" novalidate>
+{{comment_form.hidden_tag()}}
+
   	 <div class="form-field">
-            <div class="input-text">{{form.comment.label}}:</div>
-            {{ form.comment(class="form-control", id="comment") }}
-            {% for error in form.comment.errors %}
+            <div class="input-text">{{comment_form.comment.label}}:</div>
+            {{ comment_form.comment(class="form-control", id="comment") }}
+            {% for error in comment_form.comment.errors %}
                 <div class="text-danger">{{ error }}</div>
             {% endfor %}
 	 </div>
 
-	 <div class = "button">  {{ form.submit_comment() }} </div>
+	 <div class = "button">  {{ comment_form.submit_comment() }} </div>
 
 </form>
 

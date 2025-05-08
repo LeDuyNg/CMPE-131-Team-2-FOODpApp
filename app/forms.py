@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, RadioField, SubmitField, validators, EmailField, TextAreaField
+from wtforms import StringField, PasswordField, RadioField, SubmitField, validators, EmailField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Length, Email
 
 # Login form for user authentication
@@ -48,6 +48,10 @@ class RecipeForm(FlaskForm):
     #     widget=ListWidget(prefix_label=False)
     # )
     submit_recipe =  SubmitField("submit recipe")
+
+class RatingForm(FlaskForm):
+    rating = SelectField("Rate this Recipe", choices=[(1,"1"), (2,"2"), (3,"3"), (4,"4"), (5,"5")], validators=[validators.DataRequired()])
+    submit_rating = SubmitField("Submit Rating")
 
 class CommentForm(FlaskForm):
     comment = TextAreaField("Comment", validators=[validators.DataRequired()])
