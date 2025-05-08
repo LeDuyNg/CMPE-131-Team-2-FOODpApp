@@ -74,6 +74,7 @@ class Recipe(db.Model):
     created = db.Column(db.DateTime, default=datetime.now())  # Timestamp for when the recipe is created
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # Foreign key to associate with a User
     created = db.Column(db.DateTime, default=datetime.now())
+    ratings = db.Column(db.String, default="")                 # String formatted as "UserID Rating UserID Rating ..."
     num_of_rating = db.Column(db.Integer, default=0)
     total_rating = db.Column(db.Integer, default=0)
     tags = db.Column(db.JSON, default={})
@@ -92,11 +93,28 @@ class Recipe(db.Model):
             self.tags[tag] = new_tags[tag]
         flag_modified(self, "tags")
         db.session.commit()
-    
-    def rate_recipe(self, rating):
-        self.total_rating += rating
+
+    def rate_recipe(self, user_id, rating):
+        # if user has already rated the recipe update rating
+        ratings_list = self.ratings.split()
+        for id in range(0, len(ratings_list), 2):
+            if ratings_list[id] == str(user_id):
+                self.total_rating -= int(ratings_list[id+1])
+                self.total_rating += int(rating)
+                ratings_list[id+1] = rating
+                ratings_string = ' '.join(ratings_list)
+                self.ratings = ratings_string
+                db.session.commit()
+                return
+
+        # else rate recipe normally
+        self.ratings += f" {user_id} {rating} "      # stores user id and their rating in a string
+        self.total_rating += int(rating)
         self.num_of_rating += 1
         db.session.commit()
+
+    def average_rating(self):
+        return self.total_rating/self.num_of_rating
 
     def set_title(self, new_title):
         self.title = new_title
@@ -126,12 +144,9 @@ class Recipe(db.Model):
     def get_ingredients(self):
         return self.ingredients
 
-    def set_comment_ids(self, new_comment_ids):
-        self.comment_ids = new_comment_ids
-        db.session.commit()
-
     def add_comment_id(self, comment_id):
-        self.set_comment_ids(self.comment_ids + " " + str(comment_id))
+        self.comment_ids += " " + str(comment_id)
+        db.session.commit()
 
     def get_comment_ids(self):
         return self.comment_ids.split()
@@ -149,6 +164,18 @@ class Recipe(db.Model):
         self.comment_ids = " ".join(unique)
         flag_modified(self, "comment_ids")
         db.session.commit()
+
+    def get_comment_list(self):
+        comment_list = []
+        for comment_id in self.get_comment_ids():
+            comment = Comment.query.get(comment_id)  # gets the comment object
+            content = comment.comment  # gets the content of the comment
+
+            user = User.query.get(comment.user_id)  # gets the user object
+            username = user.username  # gets the username of the user
+
+            comment_list.append(f"{username} : {content}")  # comment format
+        return comment_list
 
     # Function to format the ingredients as a list from a comma-separated string
     def format_ingredients(self, unformatted_list):
