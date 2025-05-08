@@ -150,6 +150,20 @@ class Recipe(db.Model):
 
     def get_comment_ids(self):
         return self.comment_ids.split()
+    
+    # This function check the comment ids and remove duplicates while reserving the order
+    def update_comment_ids(self):
+        seen = set()
+        unique = []
+        for cid in self.get_comment_ids():
+            if cid not in seen:
+                seen.add(cid)
+                unique.append(cid)
+
+        # store back as space-separated string
+        self.comment_ids = " ".join(unique)
+        flag_modified(self, "comment_ids")
+        db.session.commit()
 
     def get_comment_list(self):
         comment_list = []

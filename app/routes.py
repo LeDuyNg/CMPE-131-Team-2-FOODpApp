@@ -94,7 +94,7 @@ def allrecipestags():
 @myapp_obj.route("/home/myrecipes")
 @login_required  # Ensure the user is logged in before accessing this route
 def myrecipes():
-    recipes = Recipe.query.filter_by(user_id=current_user.id).all();
+    recipes = Recipe.query.filter_by(user_id=current_user.id).all()
     return render_template("myrecipes.html", title = "My Recipes", pageClass = "myrecipes", recipes = recipes)  # Render home.html
 
 # Following route, renders myrecipes page and displays all recipes
@@ -316,7 +316,11 @@ def home():
     today = date.today()
     seed = today.toordinal()
     random.seed(seed)
-    random_recipe = random.choice(recipes)
+    if recipes:
+        random_recipe = random.choice(recipes)
+    else:
+        random_recipe = Recipe(title = "", description = "", ingredients = "", instructions = "", id = -1)
+
     return render_template("home.html", title = "Home", pageClass = "home", recipe = random_recipe)  # Render home.html
 
 @myapp_obj.route("/home/random_recipe")
@@ -409,3 +413,20 @@ def add_favorite(recipe_id):
     favorite_recipe = Recipe.query.get(recipe_id)
     user.add_favorite(favorite_recipe)
     return redirect(url_for('mysinglerecipeview', num = recipe_id))
+
+@myapp_obj.route("/home/myprofile/deleteprofile")
+@login_required
+def delete_profile():
+    user = User.query.get(current_user.id)
+    user_recipes = Recipe.query.filter_by(user_id=current_user.id).all()
+    user_comments = Comment.query.filter_by(user_id = current_user.id).all()
+    for recipe in user_recipes:
+        recipe_comments = Comment.query.filter_by(recipe_id = recipe.id).all()
+        for comment_to_delete in recipe_comments:
+            db.session.delete(comment_to_delete)
+        db.session.delete(recipe)
+    for comment in user_comments:
+        db.session.delete(comment)
+    db.session.delete(user)
+    db.session.commit()
+    return redirect(url_for('logout'))
