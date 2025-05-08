@@ -74,7 +74,7 @@ class Recipe(db.Model):
     created = db.Column(db.DateTime, default=datetime.now())  # Timestamp for when the recipe is created
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # Foreign key to associate with a User
     created = db.Column(db.DateTime, default=datetime.now())
-    ratings = db.Column(db.String, default="")
+    ratings = db.Column(db.String, default="")                 # String formatted as "UserID Rating UserID Rating ..."
     num_of_rating = db.Column(db.Integer, default=0)
     total_rating = db.Column(db.Integer, default=0)
     tags = db.Column(db.JSON, default={})
