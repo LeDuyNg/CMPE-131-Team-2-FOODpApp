@@ -94,7 +94,7 @@ def allrecipestags():
 @myapp_obj.route("/home/myrecipes")
 @login_required  # Ensure the user is logged in before accessing this route
 def myrecipes():
-    recipes = Recipe.query.filter_by(user_id=current_user.id).all();
+    recipes = Recipe.query.filter_by(user_id=current_user.id).all()
     return render_template("myrecipes.html", title = "My Recipes", pageClass = "myrecipes", recipes = recipes)  # Render home.html
 
 # Following route, renders myrecipes page and displays all recipes
@@ -133,14 +133,18 @@ def mysinglerecipeview(num):
     show_buttons = (current_user.is_authenticated and recipe.user_id == current_user.id)
 
     comment_list = []
-    for comment_id in recipe.get_comment_ids():
+    recipe.update_comment_ids()
+    comment_ids = recipe.get_comment_ids()
+    print(comment_ids)
+    for comment_id in comment_ids:
         comment = Comment.query.get(comment_id) # gets the comment object
-        content = comment.comment               # gets the content of the comment
+        if comment: # Check if comment exists in database
+            content = comment.comment               # gets the content of the comment
 
-        user = User.query.get(comment.user_id)  # gets the user object
-        username = user.username                # gets the username of the user
+            user = User.query.get(comment.user_id)  # gets the user object
+            username = user.username                # gets the username of the user
 
-        comment_list.append(f"{username} : {content}")  # comment format
+            comment_list.append(f"{username} : {content}")  # comment format
 
     return render_template("mysinglerecipeview.html", title = "My Recipe", pageClass = "mysinglerecipeview",
                            ingredients=formatted_ingredients, instructions=formatted_instructions, recipe = recipe, show_buttons = show_buttons,
@@ -414,3 +418,20 @@ def add_favorite(recipe_id):
     favorite_recipe = Recipe.query.get(recipe_id)
     user.add_favorite(favorite_recipe)
     return redirect(url_for('mysinglerecipeview', num = recipe_id))
+
+@myapp_obj.route("/home/myprofile/deleteprofile")
+@login_required
+def delete_profile():
+    user = User.query.get(current_user.id)
+    user_recipes = Recipe.query.filter_by(user_id=current_user.id).all()
+    user_comments = Comment.query.filter_by(user_id = current_user.id).all()
+    for recipe in user_recipes:
+        recipe_comments = Comment.query.filter_by(recipe_id = recipe.id).all()
+        for comment_to_delete in recipe_comments:
+            db.session.delete(comment_to_delete)
+        db.session.delete(recipe)
+    for comment in user_comments:
+        db.session.delete(comment)
+    db.session.delete(user)
+    db.session.commit()
+    return redirect(url_for('logout'))
