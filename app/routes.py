@@ -5,7 +5,7 @@ from app.forms import LoginForm, RegisterForm, RecipeForm, UpdateForm, CommentFo
 from app.models import User, Recipe, Comment
 from app import db
 from flask_login import current_user, login_required, login_user, logout_user
-from sqlalchemy import func
+from sqlalchemy import func, or_
 import random
 from datetime import date
 import requests
@@ -47,7 +47,7 @@ def allrecipestags():
     if ("title" in request.args):
         arg = request.args.get("title")
         form.title_for_search.data = arg
-        query = query.filter(Recipe.title.icontains(arg))
+        query = query.filter(or_(Recipe.ingredients.icontains(arg), Recipe.title.icontains(arg)))
 
     if ("temperature" in request.args):
         arg = request.args.get("temperature")

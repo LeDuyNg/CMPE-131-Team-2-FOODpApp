@@ -265,6 +265,25 @@ div.button.home-button {
 	.container{
 		display: flex;
 		flex-direction: row;
+		color: #f6f2e6;
+		
+		li {
+			list-style-type: none;
+		}
+		
+		input{
+			background-color: #f6f2e6;
+			color: #6f7251;
+			font-size: 20px;
+			border: 1px solid #623d3d;
+			border-radius: 4px;
+			box-shadow: 2px 2px 2px #e0baa5;
+			padding: 5px 10px;
+		}
+		
+		input[type="radio"]{
+			box-shadow: none;
+		}
 		
 		.links {
 			margin-top: 30px;
@@ -361,6 +380,7 @@ div.button.home-button {
 		flex-direction: row;
 		
 		.right {
+			color: #f6f2e6;
 			margin-top: 140px;
 			
 			li {
