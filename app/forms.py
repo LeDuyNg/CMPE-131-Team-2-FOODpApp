@@ -50,7 +50,7 @@ class RecipeForm(FlaskForm):
     submit_recipe =  SubmitField("submit recipe")
 
 class RatingForm(FlaskForm):
-    rating = SelectField("Rate this Recipe", choices=[(1,"1"), (2,"2"), (3,"3"), (4,"4"), (5,"5")], validators=[validators.DataRequired()])
+    rating = SelectField("Rate this Recipe", choices=[(1,"1 Star"), (2,"2 Star"), (3,"3 Star"), (4,"4 Star"), (5,"5 Star")], validators=[validators.DataRequired()])
     submit_rating = SubmitField("Submit Rating")
 
 class CommentForm(FlaskForm):

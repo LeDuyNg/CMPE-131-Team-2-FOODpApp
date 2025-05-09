@@ -139,7 +139,6 @@ def mysinglerecipeview(num):
 
     comment_list = recipe.get_comment_list()
 
-    print(recipe.average_rating())
 
     return render_template("mysinglerecipeview.html", title = "My Recipe", pageClass = "mysinglerecipeview",
                            ingredients=formatted_ingredients, instructions=formatted_instructions, recipe = recipe, show_buttons = show_buttons,
@@ -245,6 +244,7 @@ def mysinglerecipedelete(recipe_id):
         flash("You do not have access to this recipe")
         return redirect("/")
 
+    recipe_to_edit.delete_all_comments()
     db.session.delete(recipe_to_edit)   # Deletes Recipe
     db.session.commit()
     flash(f"{recipe_to_edit.get_title()} has been deleted")
@@ -417,16 +417,15 @@ def add_favorite(recipe_id):
 @myapp_obj.route("/home/myprofile/deleteprofile")
 @login_required
 def delete_profile():
-    user = User.query.get(current_user.id)
-    user_recipes = Recipe.query.filter_by(user_id=current_user.id).all()
-    user_comments = Comment.query.filter_by(user_id = current_user.id).all()
+    user = User.query.get(current_user.id)                                      # Find me
+    user_recipes = Recipe.query.filter_by(user_id=current_user.id).all()        # Find my recipes
     for recipe in user_recipes:
-        recipe_comments = Comment.query.filter_by(recipe_id = recipe.id).all()
-        for comment_to_delete in recipe_comments:
-            db.session.delete(comment_to_delete)
-        db.session.delete(recipe)
+        recipe.delete_all_comments()    # Delete all comments in my recipes
+        db.session.delete(recipe)       # Delete my recipe
+
+    user_comments = Comment.query.filter_by(user_id = current_user.id).all()    # Find my comments
     for comment in user_comments:
-        db.session.delete(comment)
-    db.session.delete(user)
+        comment.delete()                  # Delete my comment
+    db.session.delete(user)               # Delete me
     db.session.commit()
     return redirect(url_for('logout'))
