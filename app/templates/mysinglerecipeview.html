@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-	<div class = "welcome-text"> WELCOME TO THE PAGE DESCRIBING YOUR RECIPE: </div>
+<div class = "welcome-text"> WELCOME TO THE PAGE DESCRIBING YOUR RECIPE: </div>
 
 	<div class = "container">
 		<div class = "left">
@@ -75,37 +75,43 @@
 				{% endif %}
 			{% endfor %}
 		</div>
+
+
+	<div>
+		<p>Average Rating: {{ recipe.average_rating() }}</p>
+
+		<form action="" method="POST" novalidate>
+			{{rating_form.hidden_tag()}}
+			{{ rating_form.rating.label }} {{ rating_form.rating()}}
+			<div class = "button"> {{ rating_form.submit_rating() }} </div>
+		</form>
+
+		<div class="area field" style="height:400">
+			{% for comment in comment_list %}
+				<p>{{ comment }}</p>
+			{% endfor %}
+		</div>
+
+		<form action="" method="POST" novalidate>
+		{{comment_form.hidden_tag()}}
+
+			 <div class="form-field">
+					<div class="input-text">{{comment_form.comment.label}}:</div>
+					{{ comment_form.comment(class="form-control", id="comment") }}
+					{% for error in comment_form.comment.errors %}
+						<div class="text-danger">{{ error }}</div>
+					{% endfor %}
+			 </div>
+
+			 <div class = "button">  {{ comment_form.submit_comment() }} </div>
+
+		</form>
+
 	</div>
 
+</div>
 
-	</div>
 
-	{% for comment in comment_list %}
-		<p>{{ comment }}</p>
-	{% endfor %}
-
-<p>Average Rating: {{ recipe.average_rating() }}</p>
-
-<form action="" method="POST" novalidate>
-	{{rating_form.hidden_tag()}}
-	{{ rating_form.rating.label }} {{ rating_form.rating()}}
-	<div class = "button"> {{ rating_form.submit_rating() }} </div>
-</form>
-
-<form action="" method="POST" novalidate>
-{{comment_form.hidden_tag()}}
-
-  	 <div class="form-field">
-            <div class="input-text">{{comment_form.comment.label}}:</div>
-            {{ comment_form.comment(class="form-control", id="comment") }}
-            {% for error in comment_form.comment.errors %}
-                <div class="text-danger">{{ error }}</div>
-            {% endfor %}
-	 </div>
-
-	 <div class = "button">  {{ comment_form.submit_comment() }} </div>
-
-</form>
 
 	<!-- The home page button-->
 	<a href = "{{url_for('home')}}" id = "home">

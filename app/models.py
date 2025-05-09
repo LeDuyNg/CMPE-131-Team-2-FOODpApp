@@ -114,7 +114,8 @@ class Recipe(db.Model):
         db.session.commit()
 
     def average_rating(self):
-        return self.total_rating/self.num_of_rating
+        if self.num_of_rating:
+            return self.total_rating/self.num_of_rating
 
     def set_title(self, new_title):
         self.title = new_title
@@ -148,26 +149,12 @@ class Recipe(db.Model):
         self.comment_ids += " " + str(comment_id)
         db.session.commit()
 
-    def get_comment_ids(self):
+    def get_comment_ids_list(self):
         return self.comment_ids.split()
-    
-    # This function check the comment ids and remove duplicates while reserving the order
-    def update_comment_ids(self):
-        seen = set()
-        unique = []
-        for cid in self.get_comment_ids():
-            if cid not in seen:
-                seen.add(cid)
-                unique.append(cid)
-
-        # store back as space-separated string
-        self.comment_ids = " ".join(unique)
-        flag_modified(self, "comment_ids")
-        db.session.commit()
 
     def get_comment_list(self):
         comment_list = []
-        for comment_id in self.get_comment_ids():
+        for comment_id in self.get_comment_ids_list():
             comment = Comment.query.get(comment_id)  # gets the comment object
             content = comment.comment  # gets the content of the comment
 
@@ -176,6 +163,16 @@ class Recipe(db.Model):
 
             comment_list.append(f"{username} : {content}")  # comment format
         return comment_list
+
+    def delete_all_comments(self):
+        comment_ids_list = self.get_comment_ids_list()
+        print(comment_ids_list)
+        for comment_id in comment_ids_list:
+            comment = Comment.query.get(comment_id)
+            print(comment.comment)
+            db.session.delete(comment)
+        self.comment_ids = ""
+        db.session.commit()
 
     # Function to format the ingredients as a list from a comma-separated string
     def format_ingredients(self, unformatted_list):
@@ -191,19 +188,20 @@ class Recipe(db.Model):
             return []
         return [element.strip() for element in unformatted_list.split('.')]  # Split by dot and strip extra spaces
 
-    # def set_tags(self, new_tags):
-    #     self.tags = json.dumps(new_tags)
-    #     db.session.commit()
-    #
-    # def get_tags(self):
-    #     try:
-    #         return json.loads(self.tags)
-    #     except (TypeError, json.JSONDecodeError):
-    #         return []
-
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'))
     comment = db.Column(db.String)
     # replies = db.Column(db.String) # stores a list of comment id's
+
+    def delete(self):
+        recipe = Recipe.query.get(self.recipe_id)
+        comment_ids_list = recipe.get_comment_ids_list()
+        for comment_id in comment_ids_list:
+            if self.id == int(comment_id):
+                comment_ids_list.remove(comment_id)
+        string = ' '.join(comment_ids_list)
+        recipe.comment_ids = string
+        db.session.delete(self)
+        db.session.commit()
