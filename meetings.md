@@ -236,3 +236,50 @@
 
 - Tentative schedule of future meetings - `Friday 9pm`
 
+### 🗓️ 2025-05-04 at 19:00  
+**Attendees:** Le Duy Nguyen, Jason Nguyen, Angelina Ryabechenkova
+
+---
+
+### 🔄 Team Updates: Workload for Milestone 3 has been split, plan of action discussed.
+
+---
+
+#### 👤 Duy Nguyen  
+**Completed:**
+
+- Finished his assigned 2 requirements, successfully pushed them onto GitHub.
+
+**To do:**
+- Work on requirement 17 - user is able to delete their profile and all recipes. Work on adding the API to the project - show a random recipe as "recipe of the day". Added "show favorite" feature. 
+
+---
+
+#### 👤 Jason Nguyen  
+**Completed:**
+
+-  Finished his assigned 2 requirements, successfully pushed them onto GitHub.
+
+**To do:**
+- Work on the requirement that requires the ability to add comments to recipes.
+
+
+
+---
+
+#### 👤 Angelina Ryabechenkova  
+**Completed:**
+
+- Finished his assigned 2 requirements for, successfully pushed them onto GitHub. 
+
+**To do:**
+- Do more UI work, work on the search requirement. Add the ability to search by ingredients, not only by name. 
+
+---
+
+### ✅ Summary of Group Progress
+
+- Each team member shared their thoughts on the **Milestone 3**.
+- Each team member shared their progress, and we all talked about ways to improve our work, or pointed out flaws in the work of others. 
+- We discussed API options, and Le Duy said that he found a good API to implement.
+- Tentative schedule of future meetings - `Sunday 7pm`
