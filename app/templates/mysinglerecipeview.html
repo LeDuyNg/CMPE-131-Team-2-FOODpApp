@@ -18,12 +18,16 @@
 		 
  		 {% endif %}
 
-		{% if not show_buttons %}
+		{% if not show_buttons and not check_favorite%}
 		  <a href="{{ url_for('add_favorite', recipe_id = recipe.id) }}">
 		 	<div class = "button">  ADD FAVORITE </div>
 		  </a>
-
- 		 {% endif %}
+ 		{% endif %}
+		 {% if not show_bottons and check_favorite %}
+		 <a href="{{ url_for('remove_favorite', recipe_id = recipe.id) }}">
+			 <div class = "button">  REMOVE FAVORITE </div>
+		 </a>
+		 {% endif %}
 	</div>
 	
 			 <div class = "recipe-content">

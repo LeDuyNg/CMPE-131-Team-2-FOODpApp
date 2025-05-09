@@ -8,10 +8,6 @@
 				<div class = "button"> LOG OUT </div>
 			 </a> 
 			 
-			 <a href = "{{url_for('login')}}" id = "log-in">
-			 	<div class = "button"> DELETE MY PROFILE </div>
-			 </a>
-			 
 			 <a href = "{{url_for('following')}}" id = "log-in">
 			 	<div class = "button"> FOLLOWING </div>
 			 </a>
@@ -21,7 +17,7 @@
 			</a>
 
 			<a href = "{{url_for('delete_profile')}}" id = "log-in">
-				<div class = "button"> DELETE PROFILE </div>
+				<div class = "button"> DELETE MY PROFILE </div>
 			</a>
 			 
 		</div>
@@ -43,6 +39,10 @@
 			 <a href = "{{url_for('myrecipes')}}" id = "log-in">
 			 	<div class = "button"> MY RECIPES </div>
 			 </a>
+
+			 <a href = "{{url_for('my_favorites')}}" id = "log-in">
+				<div class = "button"> MY FAVORITE </div>
+			</a>
 		 
 		 </div>
 		 

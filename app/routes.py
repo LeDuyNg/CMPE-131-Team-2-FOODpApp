@@ -135,14 +135,19 @@ def mysinglerecipeview(num):
     # Format the ingredients and instructions
     formatted_ingredients = recipe.format_ingredients(recipe.ingredients)
     formatted_instructions = recipe.format_instructions(recipe.instructions)
+
+    # Check to see if user is the owner of recipe
     show_buttons = (current_user.is_authenticated and recipe.user_id == current_user.id)
+
+    # Check if recipe is in user's favorite
+    check_favorite = (recipe in current_user.favorite_recipes.all() )
 
     comment_list = recipe.get_comment_list()
 
 
     return render_template("mysinglerecipeview.html", title = "My Recipe", pageClass = "mysinglerecipeview",
                            ingredients=formatted_ingredients, instructions=formatted_instructions, recipe = recipe, show_buttons = show_buttons,
-                           comment_form = comment_form, comment_list = comment_list, rating_form = rating_form)  # Render home.html
+                           comment_form = comment_form, comment_list = comment_list, rating_form = rating_form, check_favorite = check_favorite)  # Render home.html
 
 # Route when you click "add recipe" on "my recipes" page, renders myrecipes page and displays all recipes
 @myapp_obj.route("/home/myrecipes/mysinglerecipeadd", methods=['GET', 'POST'])
@@ -406,13 +411,22 @@ def update_profile():
         return redirect("/home/myprofile")
     return render_template("test_edit_profile.html", title = "Update profile", pageClass = "update", user = user, form = form)
 
-@myapp_obj.route("/home/myrecipes/mysinglerecipe/<int:recipe_id>/favorite", methods=['GET', 'POST'])
+@myapp_obj.route("/home/myrecipes/mysinglerecipe/<int:recipe_id>/add_favorite", methods=['GET', 'POST'])
 @login_required  # Ensure the user is logged in before accessing this route
 def add_favorite(recipe_id):
     user = User.query.get(current_user.id)
     favorite_recipe = Recipe.query.get(recipe_id)
     user.add_favorite(favorite_recipe)
     return redirect(url_for('mysinglerecipeview', num = recipe_id))
+
+@myapp_obj.route("/home/myrecipes/mysinglerecipe/<int:recipe_id>/remove_favorite", methods=['GET', 'POST'])
+@login_required  # Ensure the user is logged in before accessing this route
+def remove_favorite(recipe_id):
+    user = User.query.get(current_user.id)
+    favorite_recipe = Recipe.query.get(recipe_id)
+    user.remove_favorite(favorite_recipe)
+    print("in here")
+    return redirect(url_for('my_favorites'))
 
 @myapp_obj.route("/home/myprofile/deleteprofile")
 @login_required
@@ -429,3 +443,10 @@ def delete_profile():
     db.session.delete(user)               # Delete me
     db.session.commit()
     return redirect(url_for('logout'))
+
+@myapp_obj.route("/home/myprofile/favorites")
+@login_required
+def my_favorites():
+    recipes = current_user.favorite_recipes.all()
+    
+    return render_template('favorites.html', recipes=recipes, title = "My Favorite Recipes", pageClass = "myrecipes")

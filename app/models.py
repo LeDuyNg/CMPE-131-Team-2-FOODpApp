@@ -47,11 +47,13 @@ class User(UserMixin, db.Model):
     def update_username(self, username):
         self.username = username
 
+    # Function to add favorite recipe
     def add_favorite(self, recipe):
         if not self.favorite_recipes.filter_by(id=recipe.id).first():
             self.favorite_recipes.append(recipe)
             db.session.commit()
 
+    # Function to remove favorite recipe
     def remove_favorite(self, recipe):
         if self.favorite_recipes.filter_by(id=recipe.id).first():
             self.favorite_recipes.remove(recipe)
