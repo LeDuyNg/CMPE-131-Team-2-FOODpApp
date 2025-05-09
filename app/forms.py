@@ -35,18 +35,6 @@ class RecipeForm(FlaskForm):
     meat = RadioField("Meat", choices = [("meat", "Meat"), ("non-meat", "Non-meat"), ("", "Other")], default = "")
     seafood = RadioField("Seafood", choices = [("seafood", "Seafood"), ("non-seafood", "Non-seafood"), ("", "Other")], default = "")
     
-    # tags = SelectMultipleField(
-    #     'Tags',
-    #     choices=[
-    #         ('vegan', 'Vegan'),
-    #         ('vegetarian', 'Vegetarian'),
-    #         ('gluten_free', 'Gluten-Free'),
-    #         ('quick', 'Quick'),
-    #         ('healthy', 'Healthy')
-    #     ],
-    #     option_widget=CheckboxInput(),
-    #     widget=ListWidget(prefix_label=False)
-    # )
     submit_recipe =  SubmitField("submit recipe")
 
 class RatingForm(FlaskForm):
