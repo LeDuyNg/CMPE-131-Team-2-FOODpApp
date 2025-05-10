@@ -335,7 +335,7 @@ def get_random_recipe():
     food_response = requests.get(food_url)
     food_data = food_response.json()
     meal = food_data['meals'][0]
-    return render_template('food.html', meal=meal)
+    return render_template('food.html', meal=meal, title = meal['strMeal'], pageClass = "")
 
 @myapp_obj.route("/home/myrecipes/mysinglerecipeadd/<string:meal_id>", methods=['GET', 'POST'])
 @login_required

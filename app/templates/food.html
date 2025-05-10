@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ meal.strMeal }} Recipe</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
     <h1>{{ meal.strMeal }}</h1>
     <img src="{{ meal.strMealThumb }}" alt="{{ meal.strMeal }}" width="300">
     <h2>Category: {{ meal.strCategory }} | Area: {{ meal.strArea }}</h2>
@@ -37,5 +32,4 @@
     {% endif %}
     <a href = "{{url_for('home')}}">RETURN</a>
     <a href = "{{url_for('add_API_recipe', meal_id = meal.idMeal)}}">ADD TO MY RECIPE</a>
-</body>
-</html>
+{% endblock %}
