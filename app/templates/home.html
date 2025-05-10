@@ -33,17 +33,21 @@
 		
 		<div class = "recipe"> 
 			<div class = "label"> RECIPE OF THE DAY: </div>
+			 
 			<div class = "content"> TITLE: {{recipe.title}} 
-				<br>
-				<br>
+			<br>
+			<br>
+			
 				DESCRIPTION:
-				<br>{{recipe.description}}
-				<br>
-				<br>
-				<a href = "{{url_for('mysinglerecipeview', num = recipe.id)}}" id = "log-in">
-					<div class = "button"> SEE MORE </div>
-				 </a>
+				{{recipe.description}}
+				
 			</div>
+			
+			<br>
+			<a href = "{{url_for('mysinglerecipeview', num = recipe.id)}}" id = "log-in">
+				<div class = "button"> SEE MORE </div>
+			</a>
+			
 		</div>
 	</div>
 {% endblock %}

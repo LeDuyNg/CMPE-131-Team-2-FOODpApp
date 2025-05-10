@@ -18,7 +18,12 @@ body {
 	background-repeat: no-repeat;
 	background-color: #99a146;
 	
+	color: #f6f2e6;
 	font-family: "Futura";
+	
+	.field {
+		color: #6f7251;
+	}
 	
 }
 
@@ -28,6 +33,7 @@ body {
 	position:  relative;
 	left: 160px;
 	margin-right: 160px;
+	color: #6f7251;
 
 	input {
 		display: block;
@@ -249,6 +255,7 @@ div.button.home-button {
 		}
 		
 		.content {
+			color: #6f7251;
 			background-color: #f2e7cb;
 			border: 5px solid #9bb09d;
 			border-radius: 25px;
@@ -360,6 +367,7 @@ div.button.home-button {
 	.recipe-content {
 		
 		input {
+			color: #6f7251;
 			width: 600px;	
 		}
 		
@@ -408,12 +416,23 @@ div.button.home-button {
 				margin-left: 30px;
 
 			}
+			.farright {
+				margin-left: 130px;
+				input{
+					background-color: #f6f2e6;
+					color: #6f7251;
+					font-size: 20px;
+					border: 1px solid #623d3d;
+					border-radius: 4px;
+					box-shadow: 2px 2px 2px #e0baa5;
+					padding: 5px 10px;
+				}
+			}
 		}
 		
 	.field {
 		font-family: inherit;
 		font-size: inherit;
-		color: inherit;
 		background-color: #f6f2e6;
 		border: 1px solid #623d3d;
 		border-radius: 4px;
@@ -428,6 +447,7 @@ div.button.home-button {
 	}
 	
 	.area {
+		margin-bottom: 50px;
 		width: 600px;
 		height: 160px;
 		overflow-y: scroll;

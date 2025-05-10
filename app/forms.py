@@ -43,4 +43,4 @@ class RatingForm(FlaskForm):
 
 class CommentForm(FlaskForm):
     comment = TextAreaField("Comment", validators=[validators.DataRequired()])
-    submit_comment =  SubmitField("submit comment")
+    submit_comment =  SubmitField("Submit Comment")
