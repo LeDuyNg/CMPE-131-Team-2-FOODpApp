@@ -8,39 +8,53 @@ A collaborative recipe-sharing web application created by:
 
 ---
 
-## 🚀 Milestone 2 Updates
+## 🚀 Milestone 3 Updates
 
 ### ✅ Summary
-- Completed 9 functional requirements: **1, 2, 3, 4, 5, 6, 7, 11, 14**.
-- Basic user interface implemented.
-
+- Completed 18 functional requirements.
 ---
 
 ## 🛠️ Individual Contributions
 
+**Summary of implemented requirements:**
+- **Le Duy Nguyen:** 1, 2, 3, 11, 12, 13, 16, 17, 18
+- **Angelina Ryabechenkova:** 7, 8, 14, 15
+- **Jason Nguyen:** 4, 5, 6, 9, 10
+
+---
+
 ### **Le Duy Nguyen**
-- Developed User model.
-- Implemented functionalities:
-  - User account creation (username, email, password).
-  - User login/logout with secure authentication.
-- Integrated functionalities with UI.
+
+**Implemented:**
+- A visitor can create an account by providing a username, email, and password.  
+- Registered users can log in using their email and password.  
+- Logged-in users can log out of their account securely.  
+- Users can view their own profile, including their submitted recipes.  
+- Users can update their display name, email, or password.  
+- Users can save or 'favorite' recipes for quick access later.  
+- User can get a randomly generated recipe.  
+- User is able to delete their profile and all of their recipes will be auto-deleted.  
+- User can see a random recipe of the day on the homepage.  
 
 ### **Angelina Ryabechenkova**
-- Developed and refined UI design.
-- Collaborated with Jason Nguyen to implement:
-  - Adding new recipes (title, description, ingredients, instructions).
-  - Updating user-created recipes.
-- Independently implemented:
-  - Viewing detailed recipes (ingredients and instructions).
-  - Homepage displaying all available recipes.
-- Handled ethics-related discussions and documentation.
+
+**Developed and refined UI design.**  
+**Handled ethics-related discussions and documentation.**
+
+**Implemented:**
+- Anyone can view the details of a recipe including ingredients and instructions.  
+- Users can search recipes by title or ingredient keywords.  
+- Homepage or main recipe list shows all recipes available in the database.  
+- Users can filter recipes by tags like 'vegan', 'dessert', etc.  
 
 ### **Jason Nguyen**
-- Developed Recipe model.
-- Lead developer for functionalities:
-  - Adding new recipes.
-  - Updating user-created recipes.
-  - Deleting user-created recipes.
+
+**Implemented:**
+- Logged-in users can add new recipes with title, description, ingredients, and instructions.  
+- Users can update their own recipes after creation.  
+- Users can delete their own recipes.  
+- Users can rate a recipe from 1 to 5 stars.  
+- Users can leave comments on a recipe.  
 
 ---
 
@@ -110,11 +124,10 @@ pip install -r requirements.txt
 - Profile page includes account information:
   ![User Profile](images/web-myprofile.png)
 
-### **Functionalities Status**
+### **Recipe View**
+- Recipe page includes comments and ratings:
+  ![Recipe View](images/web-viewrecipe.png)
 
-| Working ✅                      | Not Working ⚠️           |
-|---------------------------------|---------------------------|
-| Login/Logout                    | Delete User Profile       |
-| Add, Update, Delete Recipes     | Follow Users (Coming soon)|
-| View Recipes (All & Personal)   |                           |
-
+### **Random Recipe View**
+- Recipe from API includes picture, YouTube, source links
+  ![Random Recipe View](images/web-API.png)
