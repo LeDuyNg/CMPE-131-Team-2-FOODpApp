@@ -17,9 +17,9 @@ A collaborative recipe-sharing web application created by:
 ## 🛠️ Individual Contributions
 
 **Summary of implemented requirements:**
-- **Le Duy Nguyen:** 1, 2, 3, 11, 12, 13, 16, 17, 18
-- **Angelina Ryabechenkova:** 7, 8, 14, 15
-- **Jason Nguyen:** 4, 5, 6, 9, 10
+- **Le Duy Nguyen:** 1, 2, 3, 12, 13, 16, 17 (collaborated with Jason), 18
+- **Angelina Ryabechenkova:** 7, 8, 11, 14, 15
+- **Jason Nguyen:** 4, 5, 6, 9, 10, 17 (collaborated with Duy)
 
 ---
 
@@ -29,7 +29,6 @@ A collaborative recipe-sharing web application created by:
 - A visitor can create an account by providing a username, email, and password.  
 - Registered users can log in using their email and password.  
 - Logged-in users can log out of their account securely.  
-- Users can view their own profile, including their submitted recipes.  
 - Users can update their display name, email, or password.  
 - Users can save or 'favorite' recipes for quick access later.  
 - User can get a randomly generated recipe.  
@@ -44,6 +43,7 @@ A collaborative recipe-sharing web application created by:
 **Implemented:**
 - Anyone can view the details of a recipe including ingredients and instructions.  
 - Users can search recipes by title or ingredient keywords.  
+- Users can view their own profile, including their submitted recipes.  
 - Homepage or main recipe list shows all recipes available in the database.  
 - Users can filter recipes by tags like 'vegan', 'dessert', etc.  
 
@@ -55,7 +55,7 @@ A collaborative recipe-sharing web application created by:
 - Users can delete their own recipes.  
 - Users can rate a recipe from 1 to 5 stars.  
 - Users can leave comments on a recipe.  
-
+- User is able to delete their profile and all of their recipes will be auto-deleted.
 ---
 
 ## 🖥️ Installation and Setup
