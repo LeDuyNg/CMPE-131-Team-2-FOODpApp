@@ -12,6 +12,7 @@ A collaborative recipe-sharing web application created by:
 
 ### ✅ Summary
 - Completed 18 functional requirements.
+- Presentation video: https://drive.google.com/file/d/1IukE_xZSJC8HNMq1RyO7aITn4WwjNNeo/view?usp=sharing
 ---
 
 ## 🛠️ Individual Contributions
@@ -36,7 +37,7 @@ A collaborative recipe-sharing web application created by:
 - User can see a random recipe of the day on the homepage.  
 
 ### **Angelina Ryabechenkova**
-
+**Chief Designer of UI**
 **Developed and refined UI design.**  
 **Handled ethics-related discussions and documentation.**
 
