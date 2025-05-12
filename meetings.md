@@ -283,3 +283,50 @@
 - Each team member shared their progress, and we all talked about ways to improve our work, or pointed out flaws in the work of others. 
 - We discussed API options, and Le Duy said that he found a good API to implement.
 - Tentative schedule of future meetings - `Sunday 7pm`
+
+### 🗓️ 2025-05-12 at 19:00  
+**Attendees:** Le Duy Nguyen, Jason Nguyen, Angelina Ryabechenkova
+
+---
+
+### 🔄 Team Updates: Completed Milestone 3, discussed plan of action for the presentation, tested the app.
+
+---
+
+#### 👤 Duy Nguyen  
+**Completed:**
+
+- Finished all of his work, pushed all onto GitHub.
+
+**To do:**
+- Record 1.5 minute long video of himself explaining what he did for the project, and send it to Angelina so she can edit it and create a presentation. Update the README file.
+
+---
+
+#### 👤 Jason Nguyen  
+**Completed:**
+
+-  Finished all of his work, pushed all onto GitHub.
+
+**To do:**
+- Record 1.5 minute long video of himself explaining what he did for the project, and send it to Angelina so she can edit it and create a presentation.. 
+
+
+
+---
+
+#### 👤 Angelina Ryabechenkova  
+**Completed:**
+
+- Finished all of her work, pushed all onto GitHub. 
+
+**To do:**
+- Record 1.5 minute long video of herself explaining what he did for the project, and a short intro. Edit everyone's videos and make them into one presentation, submit the link to the team.
+
+---
+
+### ✅ Summary of Group Progress
+
+- Each team member shared their progress on **Milestone 3**.
+- Each team member was ready to record videos, as we discussed what needs to be said.
+
